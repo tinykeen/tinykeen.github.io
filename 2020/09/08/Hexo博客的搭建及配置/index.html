@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、安装必备软件 安装node hexo是基于Node.js框架的静态博客程序  安装git 用于本地文件与服务器文件的同步  安装一款markdown编辑器 推荐Typora或者用Visual Studio Code编辑器（安装markdown插件）   熟悉npm命令用法 全局安装hexo基础框架 1#npm install -g hexo       Github账号及账号同名的库 用来托管">
+<meta property="og:type" content="article">
+<meta property="og:title" content="博客的搭建及配置">
+<meta property="og:url" content="http://example.com/2020/09/08/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="菜园头">
+<meta property="og:description" content="一、安装必备软件 安装node hexo是基于Node.js框架的静态博客程序  安装git 用于本地文件与服务器文件的同步  安装一款markdown编辑器 推荐Typora或者用Visual Studio Code编辑器（安装markdown插件）   熟悉npm命令用法 全局安装hexo基础框架 1#npm install -g hexo       Github账号及账号同名的库 用来托管">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/Wee-Feng/AppData/Roaming/Typora/typora-user-images/image-20200909103823874.png">
+<meta property="article:published_time" content="2020-09-08T09:47:05.000Z">
+<meta property="article:modified_time" content="2020-09-09T02:38:35.870Z">
+<meta property="article:author" content="Tiny Keen">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/Wee-Feng/AppData/Roaming/Typora/typora-user-images/image-20200909103823874.png">
+
+<link rel="canonical" href="http://example.com/2020/09/08/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>博客的搭建及配置 | 菜园头</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜园头</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">秦朝大将王剪封地，古城频阳县，今陕西富平美原镇人氏</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/08/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="Tiny Keen">
+      <meta itemprop="description" content="秦人一枚，爱读书，玩历史，敲键盘谋生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园头">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          博客的搭建及配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-08 17:47:05" itemprop="dateCreated datePublished" datetime="2020-09-08T17:47:05+08:00">2020-09-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-09 10:38:35" itemprop="dateModified" datetime="2020-09-09T10:38:35+08:00">2020-09-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="一、安装必备软件"><a href="#一、安装必备软件" class="headerlink" title="一、安装必备软件"></a>一、安装必备软件</h4><ul>
+<li><p>安装node</p>
+<p>hexo是基于Node.js框架的静态博客程序</p>
+</li>
+<li><p>安装git</p>
+<p>用于本地文件与服务器文件的同步</p>
+</li>
+<li><p>安装一款markdown编辑器</p>
+<p>推荐Typora或者用Visual Studio Code编辑器（安装markdown插件） </p>
+</li>
+<li><p>熟悉npm命令用法</p>
+<p>全局安装hexo基础框架</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">npm install -g hexo</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>Github账号及账号同名的库</p>
+<p>用来托管你的静态博客内容；可通过如下步骤操作</p>
+<ul>
+<li><p>创建一个账号和创建一个库</p>
+<p>假如你的账号为<code>tinykeen</code>,则库名为<code>tinykeen.github.io</code></p>
+<p><img src="C:\Users\Wee-Feng\AppData\Roaming\Typora\typora-user-images\image-20200909103823874.png"></p>
+</li>
+<li><p>本地生成SSH密钥</p>
+<p>默认密钥对（公钥，私钥）生成再~/.ssh目录下面，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">ssh-keygen -t rsa -C <span class="string">&quot;youremail&quot;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置公钥</p>
+<p>拷贝公钥的内容，添加、配置到Github网站的对应地方</p>
+</li>
+<li><p>密钥验证</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">ssh -T git@github.com</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="二、初始化"><a href="#二、初始化" class="headerlink" title="二、初始化"></a>二、初始化</h4><p>新建目录，名称可自定义，如blog,boke等，该文件夹的主要作用如下，请<strong>妥善保存及备份</strong></p>
+<ul>
+<li>用来初始化博客网站的信息</li>
+<li>配置博客网站的主题及其他配置项</li>
+<li>博客网站所有博文的根目录</li>
+<li>git同步的主目录</li>
+</ul>
+<p>创建目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">mkdir blog</span></span><br></pre></td></tr></table></figure>
+
+<p>初始化目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">cd</span> blog ----确认进入创建的目录</span></span><br><span class="line"><span class="meta">#</span><span class="bash">hexo init</span></span><br></pre></td></tr></table></figure>
+<h4 id="三、生成博客网站"><a href="#三、生成博客网站" class="headerlink" title="三、生成博客网站"></a>三、生成博客网站</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> hexo g [或者  hexo generate ] ----生成静态网页</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> hexo s [或者  hexo server] ----启动本地网站，默认端口号4000</span></span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="四、部署到Github"><a href="#四、部署到Github" class="headerlink" title="四、部署到Github"></a>四、部署到Github</h4><ul>
+<li><p>修改配置文件</p>
+<p>根据需要，修改符合自己博客主题的配置项，如博客名称等，发布部署的配置项是</p>
+<p>deploy:<br>  type: git  —-发布方式<br>  repository: <a target="_blank" rel="noopener" href="https://github.com/tinykeen/tinykeen.github.io.git">https://github.com/tinykeen/tinykeen.github.io.git</a> —对应第一章节中创建的账号同名库<br>  branch: master</p>
+</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hexo Configuration</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/configuration.html</span></span><br><span class="line"><span class="comment">## Source: https://github.com/hexojs/hexo/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title</span>: <span class="string">菜园头</span></span><br><span class="line"><span class="attr">subtitle</span>: <span class="string">&#x27;秦朝大将王剪封地，古城频阳县，今陕西富平美原镇人氏&#x27;</span></span><br><span class="line"><span class="attr">description</span>: <span class="string">&#x27;秦人一枚，爱读书，玩历史，敲键盘谋生&#x27;</span></span><br><span class="line"><span class="attr">keywords</span>:<span class="string"></span></span><br><span class="line"><span class="attr">author</span>: <span class="string">Tiny Keen</span></span><br><span class="line"><span class="attr">language</span>: <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone</span>: <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://example.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url</span>: <span class="string">http://example.com</span></span><br><span class="line"><span class="attr">root</span>: <span class="string">/</span></span><br><span class="line"><span class="attr">permalink</span>: <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults</span>:<span class="string"></span></span><br><span class="line"><span class="attr">pretty_urls</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">trailing_index</span>: <span class="string">true # Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span></span><br><span class="line">  <span class="attr">trailing_html</span>: <span class="string">true # Set to false to remove trailing &#x27;.html&#x27; from permalinks</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory</span></span><br><span class="line"><span class="attr">source_dir</span>: <span class="string">source</span></span><br><span class="line"><span class="attr">public_dir</span>: <span class="string">public</span></span><br><span class="line"><span class="attr">tag_dir</span>: <span class="string">tags</span></span><br><span class="line"><span class="attr">archive_dir</span>: <span class="string">archives</span></span><br><span class="line"><span class="attr">category_dir</span>: <span class="string">categories</span></span><br><span class="line"><span class="attr">code_dir</span>: <span class="string">downloads/code</span></span><br><span class="line"><span class="attr">i18n_dir</span>: <span class="string">:lang</span></span><br><span class="line"><span class="attr">skip_render</span>:  <span class="string">#部署的时候不包含的文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Writing</span></span><br><span class="line"><span class="attr">new_post_name</span>: <span class="string">:title.md # File name of new posts</span></span><br><span class="line"><span class="attr">default_layout</span>: <span class="string">post</span></span><br><span class="line"><span class="attr">titlecase</span>: <span class="string">false # Transform title into titlecase</span></span><br><span class="line"><span class="attr">external_link</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">enable</span>: <span class="string">true # Open external links in new tab</span></span><br><span class="line">  <span class="attr">field</span>: <span class="string">site # Apply to the whole site</span></span><br><span class="line">  <span class="attr">exclude</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">filename_case</span>: <span class="string">0</span></span><br><span class="line"><span class="attr">render_drafts</span>: <span class="string">false #是否显示草稿</span></span><br><span class="line"><span class="attr">post_asset_folder</span>: <span class="string">false</span></span><br><span class="line"><span class="attr">relative_link</span>: <span class="string">false</span></span><br><span class="line"><span class="attr">future</span>: <span class="string">true</span></span><br><span class="line"><span class="attr">highlight</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">enable</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">line_number</span>: <span class="string">true #是否增加代码行号</span></span><br><span class="line">  <span class="attr">auto_detect</span>: <span class="string">true #自动判断代码语言</span></span><br><span class="line">  <span class="attr">tab_replace</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">hljs</span>: <span class="string">false</span></span><br><span class="line"><span class="attr">prismjs</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">enable</span>: <span class="string">false</span></span><br><span class="line">  <span class="attr">preprocess</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">line_number</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">tab_replace</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Home page setting</span></span><br><span class="line"><span class="comment"># path: Root path for your blogs index page. (default = &#x27;&#x27;)</span></span><br><span class="line"><span class="comment"># per_page: Posts displayed per page. (0 = disable pagination)</span></span><br><span class="line"><span class="comment"># order_by: Posts order. (Order by date descending by default)</span></span><br><span class="line"><span class="attr">index_generator</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">per_page</span>: <span class="string">10</span></span><br><span class="line">  <span class="attr">order_by</span>: <span class="string">-date</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Category &amp; Tag</span></span><br><span class="line"><span class="attr">default_category</span>: <span class="string">uncategorized</span></span><br><span class="line"><span class="attr">category_map</span>:<span class="string"></span></span><br><span class="line"><span class="attr">tag_map</span>:<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Metadata elements</span></span><br><span class="line"><span class="comment">## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta</span></span><br><span class="line"><span class="attr">meta_generator</span>: <span class="string">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Date / Time format</span></span><br><span class="line"><span class="comment">## Hexo uses Moment.js to parse and display date</span></span><br><span class="line"><span class="comment">## You can customize the date format as defined in</span></span><br><span class="line"><span class="comment">## http://momentjs.com/docs/#/displaying/format/</span></span><br><span class="line"><span class="attr">date_format</span>: <span class="string">YYYY-MM-DD</span></span><br><span class="line"><span class="attr">time_format</span>: <span class="string">HH:mm:ss</span></span><br><span class="line"><span class="comment">## updated_option supports &#x27;mtime&#x27;, &#x27;date&#x27;, &#x27;empty&#x27;</span></span><br><span class="line"><span class="attr">updated_option</span>: <span class="string">&#x27;mtime&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pagination</span></span><br><span class="line"><span class="comment">## Set per_page to 0 to disable pagination</span></span><br><span class="line"><span class="attr">per_page</span>: <span class="string">10</span></span><br><span class="line"><span class="attr">pagination_dir</span>: <span class="string">page</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Include / Exclude file(s)</span></span><br><span class="line"><span class="comment">## include:/exclude: options only apply to the &#x27;source/&#x27; folder</span></span><br><span class="line"><span class="attr">include</span>:<span class="string"></span></span><br><span class="line"><span class="attr">exclude</span>:<span class="string"></span></span><br><span class="line"><span class="attr">ignore</span>:<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme</span>: <span class="string">next</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">type</span>: <span class="string">git</span></span><br><span class="line">  <span class="attr">repository</span>: <span class="string">https://github.com/tinykeen/tinykeen.github.io.git</span></span><br><span class="line">  <span class="attr">branch</span>: <span class="string">master</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>发布博客</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> hexo d [ 或者hexo deploy ] </span></span><br></pre></td></tr></table></figure>
+
+<p>发布如果提示有问题，请安装发布插件npm install hexo-deployer-git –save</p>
+</li>
+</ul>
+
+    </div>
+
+
+
+    
+    
+    
+      <div>
+       
+       <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+       
+      </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/blog/" rel="tag"># blog</a>
+          </div>
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85%E5%BF%85%E5%A4%87%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">一、安装必备软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">二、初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%94%9F%E6%88%90%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99"><span class="nav-number">3.</span> <span class="nav-text">三、生成博客网站</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%83%A8%E7%BD%B2%E5%88%B0Github"><span class="nav-number">4.</span> <span class="nav-text">四、部署到Github</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tiny Keen"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">Tiny Keen</p>
+  <div class="site-description" itemprop="description">秦人一枚，爱读书，玩历史，敲键盘谋生</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/tinykeen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tinykeen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiny Keen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
