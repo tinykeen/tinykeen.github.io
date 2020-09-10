@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="秦人一枚，爱读书，玩历史，敲键盘谋生">
@@ -194,10 +194,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-09-09 19:05:05 / 修改时间：19:05:58" itemprop="dateCreated datePublished" datetime="2020-09-09T19:05:05+08:00">2020-09-09</time>
+              <time title="创建时间：2020-09-09 19:05:05" itemprop="dateCreated datePublished" datetime="2020-09-09T19:05:05+08:00">2020-09-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-10 11:25:47" itemprop="dateModified" datetime="2020-09-10T11:25:47+08:00">2020-09-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -378,9 +384,9 @@
 <li>插入图片语法和连接语法相似，只是多了一个！</li>
 <li>到目前为止，markdown还没有办法指定图片的宽度和高度</li>
 </ol>
-<h4 id="example-4"><a href="#example-4" class="headerlink" title="example"></a>example</h4><h3 id="九表格"><a href="#九表格" class="headerlink" title="九表格"></a>九表格</h3><h4 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h4><p> 语法制作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。</p>
-<p>语法格式如下：</p>
-<table>
+<h4 id="example-4"><a href="#example-4" class="headerlink" title="example"></a>example</h4><h3 id="九、表格"><a href="#九、表格" class="headerlink" title="九、表格"></a>九、表格</h3><h4 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h4><p> 语法制作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">| Tables        |      Are      |   Cool |</span><br><span class="line">| <span class="symbol">:------------</span> | <span class="symbol">:-----------</span>: | -----: |</span><br><span class="line">| col <span class="number">3</span> is      | right-aligned |  <span class="variable">$1600</span> |</span><br><span class="line">| col <span class="number">2</span> is      |   centered    |    <span class="variable">$12</span> |</span><br><span class="line">| zebra stripes |   are neat    |     <span class="variable">$1</span> |</span><br><span class="line">| 王二户        |    王三胖     | 王二小 |``</span><br></pre></td></tr></table></figure>
+<h4 id="显示效果"><a href="#显示效果" class="headerlink" title="显示效果"></a>显示效果</h4><table>
 <thead>
 <tr>
 <th align="left">Tables</th>
@@ -456,10 +462,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-09-09 17:17:42 / 修改时间：17:39:58" itemprop="dateCreated datePublished" datetime="2020-09-09T17:17:42+08:00">2020-09-09</time>
+              <time title="创建时间：2020-09-09 17:17:42" itemprop="dateCreated datePublished" datetime="2020-09-09T17:17:42+08:00">2020-09-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-10 11:22:40" itemprop="dateModified" datetime="2020-09-10T11:22:40+08:00">2020-09-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -482,24 +494,24 @@
 
       
           <h3 id="linux-centos-设置方法"><a href="#linux-centos-设置方法" class="headerlink" title="linux[centos]设置方法"></a>linux[centos]设置方法</h3><ul>
-<li><p>编写启动服务文件</p>
+<li>编写启动服务文件</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">vim /etc/systemd/system/pmad.service  -----/etc目录下</span></span><br><span class="line"><span class="meta">#</span><span class="bash">vim /lib/systemd/system/pmad.service  -----/lib目录下</span></span><br></pre></td></tr></table></figure>
 
 <p>在两个目录任一个新建都可以，加入jar包文件名为pmad.jar，服务文件名为pmad.service,内容如下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Don<span class="string">&#x27;t forget to reload systemd daemon after you change unit configuration:</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> root&gt; systemctl --system daemon-reload</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=config service</span><br><span class="line">After=syslog.target</span><br><span class="line"> </span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/local/bin/java -jar   -Xms3072m -Xmx3072m -XX:CompressedClassSpaceSize=128m -XX:MetaspaceSize=200m -XX:MaxMetaspaceSize=200m  /usr/develop/erp/erp/pmad.jar ------后端springboot jar包的绝对路径</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重新加载生效</p>
+
+<ul>
+<li>重新加载生效</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">systemctl daemon-reload</span></span><br><span class="line"><span class="meta">#</span><span class="bash">systemctl <span class="built_in">enable</span> pmad.service</span></span><br></pre></td></tr></table></figure>
 
 <p>[^]: 切记 Don’t forget to reload systemd daemon after you change unit configuration，重新加载服务的配置文件:</p>
-</li>
-</ul>
 <ul>
-<li><p>检查自启动配置是否生效</p>
+<li>检查自启动配置是否生效</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">systemctl status pmad.service</span></span><br><span class="line"><span class="meta">#</span><span class="bash">systemctl is-enabled pmad.service</span></span><br></pre></td></tr></table></figure>
 
-</li>
-</ul>
 <h3 id="windows下设置方法"><a href="#windows下设置方法" class="headerlink" title="windows下设置方法"></a>windows下设置方法</h3><ul>
 <li>准备工作</li>
 </ul>
@@ -567,10 +579,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-09-09 16:33:34 / 修改时间：16:55:52" itemprop="dateCreated datePublished" datetime="2020-09-09T16:33:34+08:00">2020-09-09</time>
+              <time title="创建时间：2020-09-09 16:33:34" itemprop="dateCreated datePublished" datetime="2020-09-09T16:33:34+08:00">2020-09-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-10 11:17:26" itemprop="dateModified" datetime="2020-09-10T11:17:26+08:00">2020-09-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -609,16 +627,17 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">watch netstat -tulpn</span></span><br><span class="line"><span class="meta">#</span><span class="bash">wathc ss -tulpn</span></span><br></pre></td></tr></table></figure>
 
 <p>每隔两秒，监听信息会刷新一次</p>
-<h3 id="3-如何查找大文件"><a href="#3-如何查找大文件" class="headerlink" title="3.如何查找大文件"></a>3.如何查找大文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># du -a   ------查看但钱目录下所有文件大小,不包括目录</span><br><span class="line">#du -sh * ---------可读性会更好一些，参数作用可通过man du查看</span><br><span class="line">#du -sh * |sort -rh -----文件从大到小排序</span><br><span class="line">#du -sh * |sort -rh |head -n 2 -----文件从大到小排序,且只列出前两个</span><br><span class="line"># find . -type f -exec du -sh &#123;&#125; + |sort -rn |head -n 2------另一种查找方式</span><br></pre></td></tr></table></figure>
+<h3 id="3-如何查找大文件"><a href="#3-如何查找大文件" class="headerlink" title="3.如何查找大文件"></a>3.如何查找大文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> du -a   ------查看但钱目录下所有文件大小,不包括目录</span></span><br><span class="line"><span class="meta">#</span><span class="bash">du -sh * ---------可读性会更好一些，参数作用可通过man du查看</span></span><br><span class="line"><span class="meta">#</span><span class="bash">du -sh * |sort -rh -----文件从大到小排序</span></span><br><span class="line"><span class="meta">#</span><span class="bash">du -sh * |sort -rh |head -n 2 -----文件从大到小排序,且只列出前两个</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> find . -<span class="built_in">type</span> f -<span class="built_in">exec</span> du -sh &#123;&#125; + |sort -rn |head -n 2------另一种查找方式</span></span><br></pre></td></tr></table></figure>
 
 <p><code>-a, --all</code><br>              <code>write counts for all files, not just directories</code></p>
 <p><code>-h, --human-readable</code><br>              <code>print sizes in human readable format (e.g., 1K 234M 2G)</code></p>
 <p><code>-s, --summarize</code><br>              <code>display only a total for each argument</code></p>
 <h3 id="4-如何通过浏览器管理CentOS"><a href="#4-如何通过浏览器管理CentOS" class="headerlink" title="4.如何通过浏览器管理CentOS"></a>4.如何通过浏览器管理CentOS</h3><h3 id="5-CentOS基本功能初始化"><a href="#5-CentOS基本功能初始化" class="headerlink" title="5.CentOS基本功能初始化"></a>5.CentOS基本功能初始化</h3><ul>
-<li><p>修改时区和时间</p>
+<li>修改时区和时间</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">timedatectl list-timezones</span></span><br><span class="line"><span class="meta">#</span><span class="bash">timedatectl <span class="built_in">set</span>-timezone Asia/Shanghai ----修改成上海的时区</span></span><br></pre></td></tr></table></figure>
 
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set-timezone [TIMEZONE]</span><br><span class="line">           Set the system time zone to the specified value. Available timezones can be listed with list-timezones. If the RTC is</span><br><span class="line">           configured to be in the local time, this will also update the RTC time. This call will alter the /etc/localtime symlink.</span><br><span class="line">           See localtime(5) for more information.</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set-timezone [TIMEZONE]</span><br><span class="line">           Set the system time zone to the specified value. Available timezones can be listed with list-timezones. If the RTC is</span><br><span class="line">           configured to be in the local time, this will also update the RTC time. This call will alter the /etc/localtime symlink.</span><br><span class="line">           See localtime(5) for more information.</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">list-timezones</span><br><span class="line">    List available time zones, one per line. Entries from the list can be set as the system timezone with set-timezone.</span><br></pre></td></tr></table></figure>
 
@@ -626,20 +645,19 @@
 
 
 
-</li>
-</ul>
 <ul>
-<li><p>修改字符集</p>
+<li>修改字符集</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">localectl  list-locales ----列出所有字符集</span></span><br><span class="line"><span class="meta">#</span><span class="bash">localectl status ---------查看当前系统字符集</span></span><br><span class="line"><span class="meta">#</span><span class="bash">localectl <span class="built_in">set</span>-locale  LANG=zh_CN.utf8 ------设置字符集</span></span><br><span class="line"><span class="meta">#</span><span class="bash">localectl <span class="built_in">set</span>-keymap us ----设置键盘</span></span><br></pre></td></tr></table></figure>
 
 
 
-</li>
-</ul>
 <ul>
 <li><p>关闭SElinux</p>
 <ul>
 <li>临时关闭</li>
+</ul>
+</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setenfore 0-----临时关闭SElinux</span></span><br></pre></td></tr></table></figure>
 
@@ -651,8 +669,6 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">vim /etc/sysconfig/selinux</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="/images/selinux.png"></p>
-</li>
-</ul>
 <h3 id="6-CentOS基础设置-nmcli设置网络信息"><a href="#6-CentOS基础设置-nmcli设置网络信息" class="headerlink" title="6.CentOS基础设置-nmcli设置网络信息"></a>6.CentOS基础设置-nmcli设置网络信息</h3><p>使用两个命令nmcli及nmtui来进行设置，其中 nmtui是图形化设置</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">nmcli -----查看当前网络信息</span></span><br><span class="line"><span class="meta">#</span><span class="bash">nmcli device   ----查看网卡设备信息</span></span><br><span class="line"><span class="meta">#</span><span class="bash">nmcli device show eth0  ---详细信息</span></span><br></pre></td></tr></table></figure>
 
@@ -944,10 +960,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-09-09 10:45:26 / 修改时间：12:06:37" itemprop="dateCreated datePublished" datetime="2020-09-09T10:45:26+08:00">2020-09-09</time>
+              <time title="创建时间：2020-09-09 10:45:26" itemprop="dateCreated datePublished" datetime="2020-09-09T10:45:26+08:00">2020-09-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-10 11:18:09" itemprop="dateModified" datetime="2020-09-10T11:18:09+08:00">2020-09-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -999,6 +1021,8 @@
 <ul>
 <li>修改生成的<code>source/tags/index.md</code>文件,加上type: “tags”,才行，title可以随便写</li>
 </ul>
+</li>
+</ul>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 学习之路</span><br><span class="line">date: <span class="number">2019</span><span class="literal">-12</span><span class="literal">-21</span> <span class="number">11</span>:<span class="number">13</span>:<span class="number">45</span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;tags&quot;</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -1006,8 +1030,6 @@
 </ul>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="literal">-12</span><span class="literal">-18</span> <span class="number">19</span>:<span class="number">45</span>:<span class="number">11</span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;categories&quot;</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 
-</li>
-</ul>
 
       
     </div>
@@ -1046,7 +1068,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/08/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">博客的搭建及配置</a>
+            <a href="/2020/09/08/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">hexo博客的搭建及配置</a>
         </h2>
 
         <div class="post-meta">
@@ -1063,7 +1085,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-09 10:38:35" itemprop="dateModified" datetime="2020-09-09T10:38:35+08:00">2020-09-09</time>
+                <time title="修改时间：2020-09-10 11:17:52" itemprop="dateModified" datetime="2020-09-10T11:17:52+08:00">2020-09-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1098,34 +1120,35 @@
 </li>
 <li><p>熟悉npm命令用法</p>
 <p>全局安装hexo基础框架</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">npm install -g hexo</span></span><br></pre></td></tr></table></figure>
-
-
-
 </li>
 </ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">npm install -g hexo</span></span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><p>Github账号及账号同名的库</p>
 <p>用来托管你的静态博客内容；可通过如下步骤操作</p>
 <ul>
 <li><p>创建一个账号和创建一个库</p>
 <p>假如你的账号为<code>tinykeen</code>,则库名为<code>tinykeen.github.io</code></p>
-<p><img src="C:\Users\Wee-Feng\AppData\Roaming\Typora\typora-user-images\image-20200909103823874.png"></p>
+<p><img src="/images/github.png"></p>
 </li>
 <li><p>本地生成SSH密钥</p>
 <p>默认密钥对（公钥，私钥）生成再~/.ssh目录下面，</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">ssh-keygen -t rsa -C <span class="string">&quot;youremail&quot;</span></span></span><br></pre></td></tr></table></figure>
 </li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">ssh-keygen -t rsa -C <span class="string">&quot;youremail&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>配置公钥</p>
 <p>拷贝公钥的内容，添加、配置到Github网站的对应地方</p>
 </li>
 <li><p>密钥验证</p>
+</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">ssh -T git@github.com</span></span><br></pre></td></tr></table></figure>
 
-</li>
-</ul>
-</li>
-</ul>
 <h4 id="二、初始化"><a href="#二、初始化" class="headerlink" title="二、初始化"></a>二、初始化</h4><p>新建目录，名称可自定义，如blog,boke等，该文件夹的主要作用如下，请<strong>妥善保存及备份</strong></p>
 <ul>
 <li>用来初始化博客网站的信息</li>
@@ -1149,12 +1172,11 @@
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hexo Configuration</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/configuration.html</span></span><br><span class="line"><span class="comment">## Source: https://github.com/hexojs/hexo/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title</span>: <span class="string">菜园头</span></span><br><span class="line"><span class="attr">subtitle</span>: <span class="string">&#x27;秦朝大将王剪封地，古城频阳县，今陕西富平美原镇人氏&#x27;</span></span><br><span class="line"><span class="attr">description</span>: <span class="string">&#x27;秦人一枚，爱读书，玩历史，敲键盘谋生&#x27;</span></span><br><span class="line"><span class="attr">keywords</span>:<span class="string"></span></span><br><span class="line"><span class="attr">author</span>: <span class="string">Tiny Keen</span></span><br><span class="line"><span class="attr">language</span>: <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone</span>: <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://example.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url</span>: <span class="string">http://example.com</span></span><br><span class="line"><span class="attr">root</span>: <span class="string">/</span></span><br><span class="line"><span class="attr">permalink</span>: <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults</span>:<span class="string"></span></span><br><span class="line"><span class="attr">pretty_urls</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">trailing_index</span>: <span class="string">true # Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span></span><br><span class="line">  <span class="attr">trailing_html</span>: <span class="string">true # Set to false to remove trailing &#x27;.html&#x27; from permalinks</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory</span></span><br><span class="line"><span class="attr">source_dir</span>: <span class="string">source</span></span><br><span class="line"><span class="attr">public_dir</span>: <span class="string">public</span></span><br><span class="line"><span class="attr">tag_dir</span>: <span class="string">tags</span></span><br><span class="line"><span class="attr">archive_dir</span>: <span class="string">archives</span></span><br><span class="line"><span class="attr">category_dir</span>: <span class="string">categories</span></span><br><span class="line"><span class="attr">code_dir</span>: <span class="string">downloads/code</span></span><br><span class="line"><span class="attr">i18n_dir</span>: <span class="string">:lang</span></span><br><span class="line"><span class="attr">skip_render</span>:  <span class="string">#部署的时候不包含的文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Writing</span></span><br><span class="line"><span class="attr">new_post_name</span>: <span class="string">:title.md # File name of new posts</span></span><br><span class="line"><span class="attr">default_layout</span>: <span class="string">post</span></span><br><span class="line"><span class="attr">titlecase</span>: <span class="string">false # Transform title into titlecase</span></span><br><span class="line"><span class="attr">external_link</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">enable</span>: <span class="string">true # Open external links in new tab</span></span><br><span class="line">  <span class="attr">field</span>: <span class="string">site # Apply to the whole site</span></span><br><span class="line">  <span class="attr">exclude</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">filename_case</span>: <span class="string">0</span></span><br><span class="line"><span class="attr">render_drafts</span>: <span class="string">false #是否显示草稿</span></span><br><span class="line"><span class="attr">post_asset_folder</span>: <span class="string">false</span></span><br><span class="line"><span class="attr">relative_link</span>: <span class="string">false</span></span><br><span class="line"><span class="attr">future</span>: <span class="string">true</span></span><br><span class="line"><span class="attr">highlight</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">enable</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">line_number</span>: <span class="string">true #是否增加代码行号</span></span><br><span class="line">  <span class="attr">auto_detect</span>: <span class="string">true #自动判断代码语言</span></span><br><span class="line">  <span class="attr">tab_replace</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">hljs</span>: <span class="string">false</span></span><br><span class="line"><span class="attr">prismjs</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">enable</span>: <span class="string">false</span></span><br><span class="line">  <span class="attr">preprocess</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">line_number</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">tab_replace</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Home page setting</span></span><br><span class="line"><span class="comment"># path: Root path for your blogs index page. (default = &#x27;&#x27;)</span></span><br><span class="line"><span class="comment"># per_page: Posts displayed per page. (0 = disable pagination)</span></span><br><span class="line"><span class="comment"># order_by: Posts order. (Order by date descending by default)</span></span><br><span class="line"><span class="attr">index_generator</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">per_page</span>: <span class="string">10</span></span><br><span class="line">  <span class="attr">order_by</span>: <span class="string">-date</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Category &amp; Tag</span></span><br><span class="line"><span class="attr">default_category</span>: <span class="string">uncategorized</span></span><br><span class="line"><span class="attr">category_map</span>:<span class="string"></span></span><br><span class="line"><span class="attr">tag_map</span>:<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Metadata elements</span></span><br><span class="line"><span class="comment">## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta</span></span><br><span class="line"><span class="attr">meta_generator</span>: <span class="string">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Date / Time format</span></span><br><span class="line"><span class="comment">## Hexo uses Moment.js to parse and display date</span></span><br><span class="line"><span class="comment">## You can customize the date format as defined in</span></span><br><span class="line"><span class="comment">## http://momentjs.com/docs/#/displaying/format/</span></span><br><span class="line"><span class="attr">date_format</span>: <span class="string">YYYY-MM-DD</span></span><br><span class="line"><span class="attr">time_format</span>: <span class="string">HH:mm:ss</span></span><br><span class="line"><span class="comment">## updated_option supports &#x27;mtime&#x27;, &#x27;date&#x27;, &#x27;empty&#x27;</span></span><br><span class="line"><span class="attr">updated_option</span>: <span class="string">&#x27;mtime&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pagination</span></span><br><span class="line"><span class="comment">## Set per_page to 0 to disable pagination</span></span><br><span class="line"><span class="attr">per_page</span>: <span class="string">10</span></span><br><span class="line"><span class="attr">pagination_dir</span>: <span class="string">page</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Include / Exclude file(s)</span></span><br><span class="line"><span class="comment">## include:/exclude: options only apply to the &#x27;source/&#x27; folder</span></span><br><span class="line"><span class="attr">include</span>:<span class="string"></span></span><br><span class="line"><span class="attr">exclude</span>:<span class="string"></span></span><br><span class="line"><span class="attr">ignore</span>:<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme</span>: <span class="string">next</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">type</span>: <span class="string">git</span></span><br><span class="line">  <span class="attr">repository</span>: <span class="string">https://github.com/tinykeen/tinykeen.github.io.git</span></span><br><span class="line">  <span class="attr">branch</span>: <span class="string">master</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>发布博客</p>
+<li>发布博客</li>
+</ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> hexo d [ 或者hexo deploy ] </span></span><br></pre></td></tr></table></figure>
 
 <p>发布如果提示有问题，请安装发布插件npm install hexo-deployer-git –save</p>
-</li>
-</ul>
 
       
     </div>
@@ -1329,6 +1351,7 @@
   </div>
 
   
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/lib/anime.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
