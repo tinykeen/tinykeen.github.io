@@ -124,17 +124,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">9</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">11</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">13</span></a>
 
   </li>
         <li class="menu-item menu-item-commonweal">
@@ -171,6 +171,611 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/22/CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AEfastDFS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="Tiny Keen">
+      <meta itemprop="description" content="秦人一枚，爱读书，玩历史，敲键盘谋生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园头">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/22/CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AEfastDFS/" class="post-title-link" itemprop="url">CentOS8下安装及配置fastDFS</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-22 17:55:21 / 修改时间：18:41:50" itemprop="dateCreated datePublished" datetime="2020-09-22T17:55:21+08:00">2020-09-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><em>如果在云服务器上安装，要注意在服务器的安全规则中设置端口<code>22122,23000,80</code>等的出入规则</em></p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ol>
+<li>官方地址</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//gi</span>thub.com/happyfish100</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>说明：当前版本:共3个子模块</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fastdfs</span> v<span class="number">6</span>.<span class="number">06</span></span><br><span class="line"><span class="attribute">libfastcommon</span> v<span class="number">1</span>.<span class="number">0</span>.<span class="number">43</span></span><br><span class="line"><span class="attribute">fastdfs</span>-nginx-module   v <span class="number">1</span>.<span class="number">22</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>下载</li>
+</ol>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="keyword">source</span>]# wget https:<span class="comment">//github.com/happyfish100/fastdfs/archive/V6.06.tar.gz</span></span><br><span class="line">[root@localhost <span class="keyword">source</span>]# wget https:<span class="comment">//github.com/happyfish100/fastdfs-nginx-module/archive/V1.22.tar.gz</span></span><br><span class="line">[root@localhost <span class="keyword">source</span>]# wget https:<span class="comment">//github.com/happyfish100/libfastcommon/archive/V1.0.43.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装所需的依赖包"><a href="#安装所需的依赖包" class="headerlink" title="安装所需的依赖包"></a>安装所需的依赖包</h2><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@localhost</span> dest]<span class="meta"># yum install gcc gcc-c++</span></span><br><span class="line">[root<span class="symbol">@localhost</span> dest]<span class="meta"># yum install libtool zlib zlib-devel openssl openssl-devel</span></span><br><span class="line">[root<span class="symbol">@localhost</span> dest]<span class="meta"># yum -y install pcre pcre-devel libevent libevent-devel perl unzip net-tools wget</span></span><br></pre></td></tr></table></figure>
+
+<p>说明：在<code>fastdfs</code>的编译安装时会用到这些包，避免编译时出现报错</p>
+<h2 id="libfastcommon的安装"><a href="#libfastcommon的安装" class="headerlink" title="libfastcommon的安装"></a>libfastcommon的安装</h2><ol>
+<li>解压<code>libfastcommon</code>的压缩包</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -zxvf V1.0.43.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>编译并安装</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> libfastcommon-1.0.43/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./make.sh &amp;&amp; ./make.sh install</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>检查执行的结果，看安装是否成功:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ls /usr/lib64|grep libfastcommon</span></span><br><span class="line">libfastcommon.so</span><br><span class="line"><span class="meta">#</span><span class="bash"> ls /usr/lib|grep libfastcommon</span></span><br><span class="line">libfastcommon.so</span><br></pre></td></tr></table></figure>
+
+<p> <em>说明：如果能看到<code>libfastcommon.so</code>说明安装成功</em></p>
+<h2 id="编译安装fastdfs"><a href="#编译安装fastdfs" class="headerlink" title="编译安装fastdfs"></a>编译安装fastdfs</h2><ol>
+<li>解压fastdfs</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -zxvf V6.06.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>安装fastdfs</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> fastdfs-6.06/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./make.sh &amp;&amp; ./make.sh install</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>检查fastdfs是否安装成功?</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ls /usr/bin|grep fdfs</span></span><br><span class="line">fdfs_appender_test</span><br><span class="line">fdfs_appender_test1</span><br><span class="line">fdfs_append_file</span><br><span class="line">fdfs_crc32</span><br><span class="line">fdfs_delete_file</span><br><span class="line">fdfs_download_file</span><br><span class="line">fdfs_file_info</span><br><span class="line">fdfs_monitor</span><br><span class="line">fdfs_regenerate_filename</span><br><span class="line">fdfs_storaged</span><br><span class="line">fdfs_test</span><br><span class="line">fdfs_test1</span><br><span class="line">fdfs_trackerd</span><br><span class="line">fdfs_upload_appender</span><br><span class="line">fdfs_upload_file</span><br></pre></td></tr></table></figure>
+
+<p><em>说明：能看到<code>fdfs_</code>打头的这些程序，则表示安装成功</em></p>
+<h2 id="生成启动fastdfs所需的配置文件"><a href="#生成启动fastdfs所需的配置文件" class="headerlink" title="生成启动fastdfs所需的配置文件"></a>生成启动fastdfs所需的配置文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> /etc/fdfs/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cp storage.conf.sample storage.conf</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cp client.conf.sample client.conf</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cp tracker.conf.sample tracker.conf</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="启动tracker服务"><a href="#启动tracker服务" class="headerlink" title="启动tracker服务"></a>启动tracker服务</h2><ol>
+<li>创建tracker服务所需的目录</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mkdir /data/fastdfs</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> mkdir /data/fastdfs/tracker</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> chmod 777 /data/fastdfs/tracker</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>配置tracker服务，</p>
+<p>修改 <code>tracker.conf </code>文件</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vi /etc/fdfs/tracker.conf</span></span><br></pre></td></tr></table></figure>
+
+<p> 只修改<code>base_path</code>一项的值为我们在上面所创建的目录即可</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">base_path</span> = <span class="string">/data/fastdfs/tracker</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>启动 tracker 服务</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> systemctl start fdfs_trackerd.service</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>检查tracker服务启动是否成功</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ps auxfww | grep fdfs</span></span><br><span class="line">root      15067  0.0  0.0  12320   964 pts/0    S+   15:14   0:00  |   |           \_ grep --color=auto fdfs</span><br><span class="line">root      15026  0.0  0.1  90160  5940 ?        Sl   15:13   0:00 /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf</span><br><span class="line"><span class="meta">#</span><span class="bash"> systemctl status fdfs_trackerd.service</span></span><br></pre></td></tr></table></figure>
+
+
+<p>能看到<code> fdfs_trackerd</code>表示<code>tracker</code>服务启动成功</p>
+<ol start="5">
+<li>检查tracker服务是否已绑定端口 22122?</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> netstat -anp | grep 22122</span></span><br><span class="line">tcp        0      0 0.0.0.0:22122           0.0.0.0:*               LISTEN      15026/fdfs_trackerd </span><br></pre></td></tr></table></figure>
+
+<p><em>说明： 22122端口是在<code>/etc/fdfs/tracker.conf</code>中定义的如下</em></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># the tracker server port</span></span><br><span class="line"><span class="attr">port</span> = <span class="string">22122</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="启动storage服务"><a href="#启动storage服务" class="headerlink" title="启动storage服务"></a>启动storage服务</h2><ol>
+<li>创建storage服务所需的目录</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mkdir /data/fastdfs/storage</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> chmod 777 /data/fastdfs/storage/</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>配置storage服务</li>
+</ol>
+<p>编辑storage的配置文件:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vi /etc/fdfs/storage.conf</span></span><br></pre></td></tr></table></figure>
+
+<p> 各配置项包括：</p>
+<p>配置<code>base_path</code>为上面所创建的storage目录</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">base_path</span> = <span class="string">/data/fastdfs/storage</span></span><br><span class="line"><span class="attr">store_path0</span> = <span class="string">/data/fastdfs/storage</span></span><br></pre></td></tr></table></figure>
+
+<p><em>上面的<code>store_path </code>：存储所在的目录，可以设置多个，注意从0开始</em></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tracker_server = <span class="number">192.168</span><span class="number">.3</span><span class="number">.172</span>:<span class="number">22122</span> </span><br></pre></td></tr></table></figure>
+
+<p><em>上面是<code>tracker_server</code>的<code>ip</code>和端口</em></p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">http</span>.server_<span class="keyword">port</span> = 80</span><br></pre></td></tr></table></figure>
+
+<p><em>上面是指定<code>http</code>服务的端口,和<code>nginx</code>的端口保持一致，从上面我们可以看到，<code>storage_server</code>在启动时要注册到<code>tracker_server </code>从而实现由<code>tracker_server</code>对其进行调度</em></p>
+<ol start="3">
+<li>启动storage服务</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> systemctl start fdfs_storaged.service</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>检查storage服务启动是否成功?</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ps auxfww | grep fdfs</span></span><br><span class="line">root      15630  0.0  0.0  12320   972 pts/0    S+   15:46   0:00  |   |           \_ grep --color=auto fdfs</span><br><span class="line">root      15026  0.0  0.1 155696  6964 ?        Sl   15:13   0:00 /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf</span><br><span class="line">root      15573  2.7  1.7 150736 66292 ?        Sl   15:45   0:02 /usr/bin/fdfs_storaged /etc/fdfs/storage.conf</span><br><span class="line"><span class="meta">#</span><span class="bash">systemctl status fdfs_storaged.service</span></span><br></pre></td></tr></table></figure>
+
+<p><em>说明：看到<code>fdfs_storaged</code>表示storage服务启动成功</em></p>
+<ol start="5">
+<li>检查<code>storage</code>服务是否已绑定到端口<code>:23000</code>?</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> netstat -anp | grep 23000</span></span><br><span class="line">tcp        0      0 0.0.0.0:23000           0.0.0.0:*               LISTEN      15573/fdfs_storaged </span><br></pre></td></tr></table></figure>
+
+<p><em>说明：23000 端口是在配置文件<code> /etc/fdfs/storage.conf</code>中定义的，如下:</em></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># the storage server port</span></span><br><span class="line">port = 23000</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置fastdfs的客户端使用的配置文件"><a href="#配置fastdfs的客户端使用的配置文件" class="headerlink" title="配置fastdfs的客户端使用的配置文件"></a>配置fastdfs的客户端使用的配置文件</h2><ol>
+<li>配置客户端要使用的client.conf</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vi /etc/fdfs/client.conf</span></span><br></pre></td></tr></table></figure>
+
+<p>以下两项配置用到的tracker目录和服务器地址端口</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">base_path</span> = <span class="string">/data/fastdfs/tracker</span></span><br><span class="line"><span class="attr">tracker_server</span> = <span class="string">192.168.3.172:22122</span></span><br></pre></td></tr></table></figure>
+
+<p><em>从客户端的配置可以看到,客户端只需要了解<code>tracker_server</code>的信息, <code>Tracker server</code>作用也正是负载均衡和调度, <code>Storage server</code>作用是文件存储，客户端上传的文件最终存储在 <code>Storage server </code>服务器上</em></p>
+<h2 id="安装nginx及fastdfs-nginx-module"><a href="#安装nginx及fastdfs-nginx-module" class="headerlink" title="安装nginx及fastdfs-nginx-module"></a>安装nginx及fastdfs-nginx-module</h2><ol>
+<li>解压<code>nginx</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -zxvf nginx-1.17.8.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>解压<code>fastdfs-nginx-module</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -zxvf V1.22.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+
+<ol start="3">
+<li>修改<code>config</code>文件，把<code>/usr/local</code> 替换成<code> /usr</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> fastdfs-nginx-module-1.22/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> src</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi config</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><code>nginx</code>配置,添加<code>fastdfs-nginx-module</code>和<code>http_stub_status_module</code> 模块</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost fdfs]# cd /usr/local/source/nginx-1.17.8/</span><br><span class="line">[root@localhost nginx-1.17.8]# ./configure --prefix=/usr/local/soft/nginx --with-http_stub_status_module --add-module=/usr/local/source/fastdfs-nginx-module-1.22/src/</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>编译安装<code>nginx </code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> make &amp;&amp; make install</span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>检查安装是否成功？</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ls /usr/<span class="built_in">local</span>/soft/ | grep nginx</span></span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>查看指定的编译参数是否起作用？</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /usr/<span class="built_in">local</span>/soft/nginx/sbin/nginx -V</span></span><br><span class="line">nginx version: nginx/1.17.8</span><br><span class="line">built by gcc 8.3.1 20190507 (Red Hat 8.3.1-4) (GCC) </span><br><span class="line">configure arguments: --prefix=/usr/local/soft/nginx --with-http_stub_status_module --add-module=/usr/local/source/fastdfs-nginx-module-1.22/src/</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="配置fastdfs-nginx-module"><a href="#配置fastdfs-nginx-module" class="headerlink" title="配置fastdfs-nginx-module"></a>配置fastdfs-nginx-module</h2><ol>
+<li>生成配置文件：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> cp /usr/<span class="built_in">local</span>/<span class="built_in">source</span>/fastdfs-nginx-module-1.22/src/mod_fastdfs.conf /etc/fdfs/</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>编辑配置文件:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vi /etc/fdfs/mod_fastdfs.conf</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">connect_timeout</span>=<span class="string">10</span></span><br><span class="line"><span class="attr">tracker_server</span>=<span class="string">192.168.3.172:22122</span></span><br><span class="line"><span class="attr">url_have_group_name</span> = <span class="string">true</span></span><br><span class="line"><span class="attr">store_path0</span>=<span class="string">/data/fastdfs/storage</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>复制另两个web访问用到配置文件到<code>/etc/fdfs</code>配置目录下:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/<span class="built_in">source</span>/fastdfs-6.06/conf/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cp http.conf /etc/fdfs/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cp mime.types /etc/fdfs/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><p><em>编辑<code>nginx</code>的配置文件,在<code>server listen 80 </code>的这个server配置下面,增加一个location</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vi /usr/<span class="built_in">local</span>/soft/nginx/conf/nginx.conf</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">location</span> <span class="string">~/group([0-9]) &#123;</span></span><br><span class="line">     <span class="attr">root</span>  <span class="string">/data/fastdfs/storage/data;</span></span><br><span class="line">     <span class="attr">ngx_fastdfs_module;</span></span><br><span class="line"> <span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="测试上传一张图片"><a href="#测试上传一张图片" class="headerlink" title="测试上传一张图片"></a>测试上传一张图片</h2><ol>
+<li>准备一张图片，然后上传</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /usr/bin/fdfs_upload_file /etc/fdfs/client.conf xxx.jpg</span></span><br><span class="line">group1/M00/00/00/wKgDrF5U32GAZAo1AAAyP-hllUI402.jpg</span><br></pre></td></tr></table></figure>
+
+<p> <em>注意<code>fdfs</code>所返回的地址，我们需要使用这个地址进行访问</em></p>
+<ol start="2">
+<li>打开浏览器：访问这个地址:</li>
+</ol>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">http</span>:<span class="string">//192.168.3.172/group1/M00/00/00/wKgDrF5U32GAZAo1AAAyP-hllUI402.jpg</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>实际的图片位于文件系统中什么位置？</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">pwd</span></span></span><br><span class="line">/data/fastdfs/storage/data</span><br><span class="line">[root@localhost data]# ls 00/00</span><br><span class="line">wKgDrF5U32GAZAo1AAAyP-hllUI402.jpg</span><br></pre></td></tr></table></figure>
+
+<p><em>可见<code>/group1/M00</code>这两个目录是由<code>fdfs</code>所管理生成的目录,它们分别代表<code>fdfs</code>生成的组名和磁盘</em></p>
+<h2 id="查看fdfs的版本"><a href="#查看fdfs的版本" class="headerlink" title="查看fdfs的版本"></a>查看fdfs的版本</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> fdfs_monitor /etc/fdfs/client.conf | grep version</span></span><br><span class="line">[2020-02-25 16:58:01] DEBUG - base_path=/data/fastdfs/tracker, connect_timeout=5, network_timeout=60, tracker_server_count=1, anti_steal_token=0, anti_steal_secret_key length=0, use_connection_pool=0, g_connection_pool_max_idle_time=3600s, use_storage_id=0, storage server id count: 0</span><br><span class="line"></span><br><span class="line">version = 6.06</span><br></pre></td></tr></table></figure>
+<h2 id="监控fdfs的运行状态"><a href="#监控fdfs的运行状态" class="headerlink" title="监控fdfs的运行状态"></a>监控fdfs的运行状态</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> fdfs_monitor /etc/fdfs/client.conf</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+
+
+    
+    
+    
+      <div>
+       
+      </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/22/Apache-tomcat%E5%9C%A8linux%E4%B8%8B%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="Tiny Keen">
+      <meta itemprop="description" content="秦人一枚，爱读书，玩历史，敲键盘谋生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园头">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/22/Apache-tomcat%E5%9C%A8linux%E4%B8%8B%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Apache tomcat在linux下安装及配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-22 14:51:40 / 修改时间：18:39:14" itemprop="dateCreated datePublished" datetime="2020-09-22T14:51:40+08:00">2020-09-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/server/" itemprop="url" rel="index"><span itemprop="name">server</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">wget https://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-9/v9.0.38/bin/apache-tomcat-9.0.38.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar zxvf apache-tomcat-9.0.38.tar.gz</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cp apache-tomcat-9.0.38 /usr/<span class="built_in">local</span>/apache-tomcat-9.0.38</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p><em>如果有必要，可通过如下命令修改默认配置，一般情况下保持默认配置</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/apache-tomcat-9.0.38</span></span><br><span class="line"><span class="meta">#</span><span class="bash">vim ./apache-tomcat-9.0.38/conf/server.xml</span></span><br></pre></td></tr></table></figure>
+
+<p><em>默认端口的说明：</em></p>
+<ol>
+<li><p>8005   关闭tomcat进程所用。</p>
+<p>当执行<code>shutdown.sh</code>关闭tomcat时就是连接8005端口执行“SHUTDOWN”命令,如果8005端口未监听那么tomcat无法用<code>shutdown.sh</code>关闭</p>
+</li>
+<li><p>8009   <code>httpd</code>等反向代理<code>tomcat</code>时就可以使用<code>ajp</code>协议反向代理到该端口。虽然我们经常都是使用<code>http</code>反向代理到8080端口，但由于<code>ajp</code>建立<code>tcp</code>连接后一般长时间保持，从而减少了<code>http</code>反复进行<code>tcp</code>连接和断开的开销，所以反向代理中<code>ajp</code>是比<code>http</code>高效</p>
+</li>
+<li><p>8080   默认的<code>http</code>监听端口</p>
+</li>
+<li><p>8443   默认的<code>https</code>监听端口。默认未开启，如果要开启由于tomcat不自带证书所以除了取消注释之外，还要自己生成证书并在<Connector>中指定方可</p>
+</li>
+</ol>
+<h3 id="启动、关闭"><a href="#启动、关闭" class="headerlink" title="启动、关闭"></a>启动、关闭</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/apache-tomcat-9.0.38/bin</span></span><br><span class="line"><span class="meta">#</span><span class="bash">./startup.sh ----启动</span></span><br><span class="line"><span class="meta">#</span><span class="bash">./shutdown.sh ----关闭</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="管理端，配置和访问"><a href="#管理端，配置和访问" class="headerlink" title="管理端，配置和访问"></a>管理端，配置和访问</h3><p>如果要管理<code>host-manager</code> <code> manager</code>这两个<code>web</code>应用，首先需要修改<code>/usr/local/tomcat/conf/tomcat-users.xml</code>文件，增加角色及用户，如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;role rolename=&quot;manager-gui&quot;/&gt;</span><br><span class="line">&lt;role rolename=&quot;admin-gui&quot;/&gt;</span><br><span class="line">&lt;user username=&quot;username&quot; password=&quot;password&quot; roles=&quot;manager-gui,admin-gui&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p><em>Tomcat versions 8+ 以上版本，这两个应用默认配置只能本机有访问权限（和Tomcat服务器是同一个<code>IP</code>地址），如果要通过浏览器远程访问，就需要修改这两个<code>webapp</code>应用的配置文件，修改如下：</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/apache-tomcat-9.0.38/webapps/host-manager/META-INF</span></span><br><span class="line"><span class="meta">#</span><span class="bash">vim context.xml</span></span><br><span class="line">...</span><br><span class="line">&lt;!--注释掉这行，默认知识本机访问</span><br><span class="line">  &lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot;</span><br><span class="line">         allow=&quot;127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1&quot; /&gt;</span><br><span class="line"><span class="meta">--&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置开发启动服务"><a href="#配置开发启动服务" class="headerlink" title="配置开发启动服务"></a>配置开发启动服务</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> useradd -r tomcat</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> chown -R tomcat:tomcat /usr/<span class="built_in">local</span>/apache-tomcat-9.0.38</span></span><br></pre></td></tr></table></figure>
+
+<p>编辑启动服务脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">vim /lib/systemd/system/tomcat.service</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Don&#x27;t forget to reload systemd daemon after you change unit configuration:# root&gt; systemctl --system daemon-reload</span></span><br><span class="line"><span class="attr">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=<span class="string">Tomcat Server</span></span><br><span class="line"><span class="attr">After</span>=<span class="string">syslog.target network.target</span></span><br><span class="line"></span><br><span class="line"><span class="attr">[Service]</span></span><br><span class="line"><span class="attr">Type</span>=<span class="string">forking</span></span><br><span class="line"><span class="attr">User</span>=<span class="string">tomcat</span></span><br><span class="line"><span class="attr">Group</span>=<span class="string">tomcat</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Environment</span>=<span class="string">JAVA_HOME=/usr/lib/jvm/jre</span></span><br><span class="line"><span class="attr">Environment</span>=<span class="string">&#x27;JAVA_OPTS=-Djava.awt.headless=true&#x27;</span></span><br><span class="line"><span class="attr">Environment</span>=<span class="string">CATALINA_HOME=/usr/local/apache-tomcat-9.0.38</span></span><br><span class="line"><span class="attr">Environment</span>=<span class="string">CATALINA_BASE=/usr/local/apache-tomcat-9.0.38</span></span><br><span class="line"><span class="attr">Environment</span>=<span class="string">CATALINA_PID=/usr/local/apache-tomcat-9.0.38/temp/tomcat.pid</span></span><br><span class="line"><span class="attr">Environment</span>=<span class="string">&#x27;CATALINA_OPTS=-Xms512M -Xmx1024M&#x27;</span></span><br><span class="line"><span class="attr">ExecStart</span>=<span class="string">/usr/local/apache-tomcat-9.0.38/bin/catalina.sh start</span></span><br><span class="line"><span class="attr">ExecStop</span>=<span class="string">/usr/local/apache-tomcat-9.0.38/bin/catalina.sh stop</span></span><br><span class="line"></span><br><span class="line"><span class="attr">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=<span class="string">multi-user.target</span></span><br></pre></td></tr></table></figure>
+
+<p><em>执行如下命令，重启生效</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> systemctl daemon-reload</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+
+
+    
+    
+    
+      <div>
+       
+      </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/17/Redis%E5%9C%A8Linux%E4%B8%8B%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="Tiny Keen">
+      <meta itemprop="description" content="秦人一枚，爱读书，玩历史，敲键盘谋生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园头">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/17/Redis%E5%9C%A8Linux%E4%B8%8B%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Redis在Linux下安装过程记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-17 17:14:57" itemprop="dateCreated datePublished" datetime="2020-09-17T17:14:57+08:00">2020-09-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-22 18:38:43" itemprop="dateModified" datetime="2020-09-22T18:38:43+08:00">2020-09-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="yum源安装"><a href="#yum源安装" class="headerlink" title="yum源安装"></a>yum源安装</h3><ol>
+<li>安装</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> yum install redis</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>配置开机自启动</p>
+<p><em>安装成功后，centos8会自动生成<code>redis.service</code>服务</em></p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> systemctl <span class="built_in">enable</span> redis.service</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>查看服务状态</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> systemctl status redis.service</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h3><ol>
+<li>下载，编译</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> wget http://download.redis.io/releases/redis-6.0.8.tar.gz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> tar xzf redis-6.0.8.tar.gz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> redis-6.0.8</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make</span></span><br></pre></td></tr></table></figure>
+
+<p><em>the binaries that are now compiled are available in the <code>src</code> directory. Run Redis with:</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ./src/redis-server</span></span><br></pre></td></tr></table></figure>
+
+<p><em>You can interact with Redis using the built-in client</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> src/redis-cli</span></span><br><span class="line"><span class="meta">redis&gt;</span><span class="bash"> <span class="built_in">set</span> foo bar</span></span><br><span class="line">OK</span><br><span class="line"><span class="meta">redis&gt;</span><span class="bash"> get foo</span></span><br><span class="line">&quot;bar&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="允许远程连接"><a href="#允许远程连接" class="headerlink" title="允许远程连接"></a>允许远程连接</h3><p><em>修改配置文件<code>redis.conf</code>如下</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/redis.conf</span></span><br><span class="line">bind 127.0.0.0</span><br><span class="line">改为</span><br><span class="line">bind 0.0.0.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置访问密码"><a href="#设置访问密码" class="headerlink" title="设置访问密码"></a>设置访问密码</h3><p><em>修改配置文件<code>redis.conf</code>如下</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/redis.conf</span></span><br><span class="line"><span class="meta">#</span><span class="bash">requirepass foobared ==去掉注释</span></span><br><span class="line">requirepass your password</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+
+
+    
+    
+    
+      <div>
+       
+      </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/17/JAVA%E5%9C%A8CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="Tiny Keen">
+      <meta itemprop="description" content="秦人一枚，爱读书，玩历史，敲键盘谋生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园头">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/17/JAVA%E5%9C%A8CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">JAVA在CentOS8下安装配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-17 11:15:05" itemprop="dateCreated datePublished" datetime="2020-09-17T11:15:05+08:00">2020-09-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-22 18:38:36" itemprop="dateModified" datetime="2020-09-22T18:38:36+08:00">2020-09-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="官网下载"><a href="#官网下载" class="headerlink" title="官网下载"></a>官网下载</h3><p>jdk-8u161-linux-x64.tar.gz</p>
+<p>官网地址：<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
+<h3 id="解压安装包"><a href="#解压安装包" class="headerlink" title="解压安装包"></a>解压安装包</h3><p>[root@QIANZI-BASE home]# tar -zvxf jdk-8u161-linux-x64.tar.gz</p>
+<h3 id="安装到-usr-local"><a href="#安装到-usr-local" class="headerlink" title="安装到 /usr/local/"></a>安装到 <code>/usr/local/</code></h3><p>[root@QIANZI-BASE home]# mv jdk-8u161 /usr/local/<br>[root@QIANZI-BASE home]# cd /usr/local/</p>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vim /etc/profile</span></span><br></pre></td></tr></table></figure>
+
+<p><em>在文件末尾增加如下语句</em></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">export</span> <span class="string">JAVA_HOME=/usr/local/jdk1.8.0_261</span></span><br><span class="line"><span class="attr">export</span> <span class="string">JRE_HOME=/usr/local/jdk1.8.0_261/jre</span></span><br><span class="line"><span class="attr">export</span> <span class="string">CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib</span></span><br><span class="line"><span class="attr">export</span> <span class="string">PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">====执行如下命令，配置立即生效</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">source</span> /etc/profile</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="验证安装结果"><a href="#验证安装结果" class="headerlink" title="验证安装结果"></a>验证安装结果</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@tinykeen jdk1.8.0_261]# java -version</span><br><span class="line">java version &quot;1.8.0_261&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_261-b13)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.261-b13, mixed mode)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+
+
+    
+    
+    
+      <div>
+       
+      </div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/16/MYSQL%E5%9C%A8CentOS8%E4%B8%8B%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -196,7 +801,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-09-16 17:59:10 / 修改时间：18:24:35" itemprop="dateCreated datePublished" datetime="2020-09-16T17:59:10+08:00">2020-09-16</time>
+              <time title="创建时间：2020-09-16 17:59:10 / 修改时间：18:44:16" itemprop="dateCreated datePublished" datetime="2020-09-16T17:59:10+08:00">2020-09-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,24 +834,21 @@
 <ul>
 <li>查看状态</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> systemctl status mysqld.service</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> systemctl status mysqld.service</span></span><br><span class="line">● mysqld.service - MySQL Server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since Wed 2020-09-16 17:08:59 CST; 1h 30min ago</span><br><span class="line">     Docs: man:mysqld(8)</span><br><span class="line">           http://dev.mysql.com/doc/refman/en/using-systemd.html</span><br><span class="line"> Main PID: 31330 (mysqld)</span><br><span class="line">   Status: &quot;Server is operational&quot;</span><br><span class="line">    Tasks: 39 (limit: 26213)</span><br><span class="line">   Memory: 383.2M</span><br><span class="line">   CGroup: /system.slice/mysqld.service</span><br><span class="line">           └─31330 /usr/sbin/mysqld</span><br><span class="line"></span><br><span class="line">Sep 16 17:08:58 ecs-17b1-xtzn-0002 systemd[1]: Starting MySQL Server...</span><br><span class="line">Sep 16 17:08:59 ecs-17b1-xtzn-0002 systemd[1]: Started MySQL Server</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>查看数据库安装后，系统创建的默认密码，生成的<code>mysqld.log</code></li>
-</ul>
+<ol>
+<li><p>修改默认密码</p>
+<p><em>查看数据库安装后，系统创建的默认密码，生成的<code>mysqld.log</code></em>,通过如下命令获取默认密码</p>
+</li>
+</ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> less /var/<span class="built_in">log</span>/mysqld.log</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> grep <span class="string">&#x27;password is generated&#x27;</span> /var/<span class="built_in">log</span>/mysqld.log |awk <span class="string">&#x27;&#123;print $NF&#125;&#x27;</span></span></span><br></pre></td></tr></table></figure>
+<p>​     <em>根据默认密码登录，修改密码</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">mysql -u root -p</span></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">###初次登录数据库，需要修改默认密码</span></span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash">  ALTER USER <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="string">&#x27;pmad@2020&#x27;</span>;</span></span><br><span class="line">ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">### 如果出现如上错误，请关闭密码设定要求</span></span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show global variables like <span class="string">&#x27;%validate_password%&#x27;</span>;</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">set</span> global validate_password.policy=0;       <span class="comment"># 关闭密码复杂性策略</span></span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">set</span> global validate_password.length=4;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>修改默认密码【处理方式一】</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">mysql -u root -p</span></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">###初次登录数据库，需要修改默认密码</span></span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash">  ALTER USER <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="string">&#x27;pmad@2020&#x27;</span>;</span></span><br><span class="line">ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">### 如果出现如上错误，请关闭密码设定要求</span></span></span><br><span class="line">show global variables like &#x27;%validate_password%&#x27;;</span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">set</span> global validate_password.policy=0;       <span class="comment"># 关闭密码复杂性策略</span></span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">set</span> global validate_password.length=4;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
+<ol>
 <li>清空密码【处理方式二】</li>
-</ul>
+</ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1.修改配置</span></span><br><span class="line">vim /etc/my.cnf</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2.进入编辑状态，在配置文件的最后加入</span></span><br><span class="line">skip-grant-tables</span><br><span class="line"><span class="meta">#</span><span class="bash"> 3.保存退出</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 4.重启mysql服务</span></span><br><span class="line">systemctl restart mysqld.service</span><br><span class="line"><span class="meta">#</span><span class="bash"> 5.登陆mysql命令行, 密码输入部分直接回车不用管他</span></span><br><span class="line">mysql -uroot -p</span><br><span class="line"><span class="meta">#</span><span class="bash"> 6.清空root用户的密码</span></span><br><span class="line">use mysql;</span><br><span class="line">select host, user, authentication_string, plugin from user;</span><br><span class="line">update user set authentication_string=&#x27;&#x27; where user=&#x27;root&#x27;;</span><br><span class="line"><span class="meta">#</span><span class="bash">7.退出mysql命令行，删除前面在my.cnf中添加的配置，然后重启mysql服务（步骤跟前面一样，不写）</span></span><br><span class="line"><span class="meta">#</span><span class="bash">8.进入mysql命令行然后修改root密码即可</span></span><br><span class="line">ALTER user &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;password&#x27;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
 
 <ul>
 <li>配置远程连接</li>
@@ -1056,7 +1658,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-10 18:32:56" itemprop="dateModified" datetime="2020-09-10T18:32:56+08:00">2020-09-10</time>
+                <time title="修改时间：2020-09-17 09:30:35" itemprop="dateModified" datetime="2020-09-17T09:30:35+08:00">2020-09-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1101,7 +1703,7 @@
 <p><code>-a, --all</code><br>              <code>write counts for all files, not just directories</code></p>
 <p><code>-h, --human-readable</code><br>              <code>print sizes in human readable format (e.g., 1K 234M 2G)</code></p>
 <p><code>-s, --summarize</code><br>              <code>display only a total for each argument</code></p>
-<h3 id="如何通过浏览器管理CentOS"><a href="#如何通过浏览器管理CentOS" class="headerlink" title="如何通过浏览器管理CentOS"></a>如何通过浏览器管理CentOS</h3><h3 id="CentOS基本功能初始化"><a href="#CentOS基本功能初始化" class="headerlink" title="CentOS基本功能初始化"></a>CentOS基本功能初始化</h3><ul>
+<h3 id="如何通过浏览器管理CentOS"><a href="#如何通过浏览器管理CentOS" class="headerlink" title="如何通过浏览器管理CentOS"></a>如何通过浏览器管理CentOS</h3><h3 id="基本功能初始化"><a href="#基本功能初始化" class="headerlink" title="基本功能初始化"></a>基本功能初始化</h3><ul>
 <li>修改时区和时间</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">timedatectl list-timezones</span></span><br><span class="line"><span class="meta">#</span><span class="bash">timedatectl <span class="built_in">set</span>-timezone Asia/Shanghai ----修改成上海的时区</span></span><br></pre></td></tr></table></figure>
@@ -1138,13 +1740,18 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">vim /etc/sysconfig/selinux</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="/images/selinux.png"></p>
-<h3 id="CentOS基础设置-nmcli设置网络信息"><a href="#CentOS基础设置-nmcli设置网络信息" class="headerlink" title="CentOS基础设置-nmcli设置网络信息"></a>CentOS基础设置-nmcli设置网络信息</h3><p>使用两个命令nmcli及nmtui来进行设置，其中 nmtui是图形化设置</p>
+<h3 id="nmcli设置网络信息"><a href="#nmcli设置网络信息" class="headerlink" title="nmcli设置网络信息"></a>nmcli设置网络信息</h3><p>使用两个命令nmcli及nmtui来进行设置，其中 nmtui是图形化设置</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">nmcli -----查看当前网络信息</span></span><br><span class="line"><span class="meta">#</span><span class="bash">nmcli device   ----查看网卡设备信息</span></span><br><span class="line"><span class="meta">#</span><span class="bash">nmcli device show eth0  ---详细信息</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="/images/nmcli.png">)</p>
 <p>增加一条connection</p>
 <p><img src="/images/add-connection.png"></p>
-<h3 id="CentOS基础设置-主机名管理"><a href="#CentOS基础设置-主机名管理" class="headerlink" title="CentOS基础设置-主机名管理"></a>CentOS基础设置-主机名管理</h3><h3 id="CentOS基础设置-服务管理"><a href="#CentOS基础设置-服务管理" class="headerlink" title="CentOS基础设置-服务管理"></a>CentOS基础设置-服务管理</h3><p>通过systemctl命令进行管理</p>
+<h3 id="主机名管理"><a href="#主机名管理" class="headerlink" title="主机名管理"></a>主机名管理</h3><p><em>使用 <code>hostnamectl</code> 命令修改主机名，一般修改系统主机名</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">hostnamectl --<span class="built_in">help</span></span></span><br><span class="line">hostnamectl [OPTIONS...] COMMAND ...</span><br><span class="line"></span><br><span class="line">Query or change system hostname.</span><br><span class="line"></span><br><span class="line">  -h --help              Show this help</span><br><span class="line">     --version           Show package version</span><br><span class="line">     --no-ask-password   Do not prompt for password</span><br><span class="line">  -H --host=[USER@]HOST  Operate on remote host</span><br><span class="line">  -M --machine=CONTAINER Operate on local container</span><br><span class="line">     --transient         Only set transient hostname</span><br><span class="line">     --static            Only set static hostname</span><br><span class="line">     --pretty            Only set pretty hostname</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  status                 Show current hostname settings</span><br><span class="line">  set-hostname NAME      Set system hostname</span><br><span class="line">  set-icon-name NAME     Set icon name for host</span><br><span class="line">  set-chassis NAME       Set chassis type for host</span><br><span class="line">  set-deployment NAME    Set deployment environment for host</span><br><span class="line">  set-location NAME      Set location for host</span><br><span class="line"><span class="meta"> #</span><span class="bash"> hostnamectl <span class="built_in">set</span>-hostname 主机名</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a>服务管理</h3><p>通过systemctl命令进行管理</p>
 <p>显示所有服务</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">systemctl list-units --<span class="built_in">type</span> service</span></span><br></pre></td></tr></table></figure>
 
@@ -1189,7 +1796,7 @@
 <p>禁止或允许开机启动</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">systemctl <span class="built_in">disable</span> firewalld.service</span></span><br><span class="line"><span class="meta">#</span><span class="bash">systemctl <span class="built_in">enable</span> firewalld.service</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="CentOS基础设置-查看系统日志"><a href="#CentOS基础设置-查看系统日志" class="headerlink" title="CentOS基础设置-查看系统日志"></a>CentOS基础设置-查看系统日志</h3><h3 id="CentOS基础设置-禁用Firewall"><a href="#CentOS基础设置-禁用Firewall" class="headerlink" title="CentOS基础设置-禁用Firewall"></a>CentOS基础设置-禁用Firewall</h3><p>禁用按如下三步骤进行：</p>
+<h3 id="查看系统日志"><a href="#查看系统日志" class="headerlink" title="查看系统日志"></a>查看系统日志</h3><h3 id="禁用Firewall防火墙"><a href="#禁用Firewall防火墙" class="headerlink" title="禁用Firewall防火墙"></a>禁用Firewall防火墙</h3><p>禁用按如下三步骤进行：</p>
 <p>查看当前状态</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">systemctl status firewalld.service</span></span><br></pre></td></tr></table></figure>
 
@@ -1201,7 +1808,7 @@
 
 
 
-<h3 id="CentOS配置阿里云yum源"><a href="#CentOS配置阿里云yum源" class="headerlink" title="CentOS配置阿里云yum源"></a>CentOS配置阿里云yum源</h3><ol>
+<h3 id="配置阿里云yum源"><a href="#配置阿里云yum源" class="headerlink" title="配置阿里云yum源"></a>配置阿里云yum源</h3><ol>
 <li>查看系统自带yum源信息</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> /etc/yum.repos.d</span></span><br></pre></td></tr></table></figure>
@@ -1227,12 +1834,8 @@
 <p><img src="/images/extras.png" alt="img"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">yum -y install epel-release</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum clean all</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum makecache</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum repolist</span></span><br></pre></td></tr></table></figure>
 
-
-
-
-
-<h3 id="CentOS-RPM包管理-RPM包信息查询"><a href="#CentOS-RPM包管理-RPM包信息查询" class="headerlink" title="CentOS RPM包管理/RPM包信息查询"></a>CentOS RPM包管理/RPM包信息查询</h3><p>包管理工具有yum及dnf,从CentOS8开始用dnf管理，我们这里介绍yum，它和dnf用法差不多</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">yum list --all ----列出yum源中所有的包</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum list --available ---列出yum源中可用的安装包</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum list --installed ---列出yum源中安装了的包</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum repolist------列出yum源</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum search vim ---查找名称为vim的包</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum info 包具体名称  -----查看具体包的信息</span></span><br><span class="line">如：</span><br><span class="line"><span class="meta">#</span><span class="bash">yum info vim-common</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="RPM包管理-RPM包信息查询"><a href="#RPM包管理-RPM包信息查询" class="headerlink" title="RPM包管理/RPM包信息查询"></a>RPM包管理/RPM包信息查询</h3><p>包管理工具有yum及dnf,从CentOS8开始用dnf管理，我们这里介绍yum，它和dnf用法差不多</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">yum list --all ----列出yum源中所有的包</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum list --available ---列出yum源中可用的安装包</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum list --installed ---列出yum源中安装了的包</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum repolist------列出yum源</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum search vim ---查找名称为vim的包</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum info 包具体名称  -----查看具体包的信息</span></span><br><span class="line">=====================</span><br><span class="line"><span class="meta">#</span><span class="bash">yum info vim-common</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><img src="/images/info.png"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">yum group list  ----列出安装包组信息</span></span><br></pre></td></tr></table></figure>
@@ -1242,7 +1845,7 @@
 
 
 
-<h3 id="CentOS-RPM包管理-RPM包安装更新"><a href="#CentOS-RPM包管理-RPM包安装更新" class="headerlink" title="CentOS RPM包管理/RPM包安装更新"></a>CentOS RPM包管理/RPM包安装更新</h3><p>安装之前最好查询一下是否系统安装过</p>
+<h3 id="RPM包管理-RPM包安装更新"><a href="#RPM包管理-RPM包安装更新" class="headerlink" title="RPM包管理/RPM包安装更新"></a>RPM包管理/RPM包安装更新</h3><p>安装之前最好查询一下是否系统安装过</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">yum list --installed |grep 包名  ---查询包是否已经安装过</span></span><br></pre></td></tr></table></figure>
 
 <p>可以通过yum源安装，也可以本地安装</p>
@@ -1270,13 +1873,13 @@
 
 
 
-<h3 id="CentOS-RPM包管理-RPM包卸载"><a href="#CentOS-RPM包管理-RPM包卸载" class="headerlink" title="CentOS RPM包管理/RPM包卸载"></a>CentOS RPM包管理/RPM包卸载</h3><p>卸载某个安装包</p>
+<h3 id="RPM包管理-RPM包卸载"><a href="#RPM包管理-RPM包卸载" class="headerlink" title="RPM包管理/RPM包卸载"></a>RPM包管理/RPM包卸载</h3><p>卸载某个安装包</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">yum remove 包名</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum remove fping---------------卸载包fping，同时卸载它的所有依赖</span></span><br></pre></td></tr></table></figure>
 
 <p>卸载某个组的包</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">yum group remove 组名</span></span><br><span class="line"><span class="meta">#</span><span class="bash">yum group remove <span class="string">&quot;Development Tools&quot;</span></span></span><br></pre></td></tr></table></figure>
 
-<h3 id="CentOSRPM包历史回滚操作"><a href="#CentOSRPM包历史回滚操作" class="headerlink" title="CentOSRPM包历史回滚操作"></a>CentOSRPM包历史回滚操作</h3><p>查询yum安装的历史操作</p>
+<h3 id="RPM包历史回滚操作"><a href="#RPM包历史回滚操作" class="headerlink" title="RPM包历史回滚操作"></a>RPM包历史回滚操作</h3><p>查询yum安装的历史操作</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">yum <span class="built_in">history</span></span></span><br></pre></td></tr></table></figure>
 
 <p><img src="/images/history.png"></p>
@@ -1314,362 +1917,11 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/09/mvn%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="Tiny Keen">
-      <meta itemprop="description" content="秦人一枚，爱读书，玩历史，敲键盘谋生">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园头">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/09/mvn%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">mvn常用命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-09-09 16:21:45 / 修改时间：16:25:55" itemprop="dateCreated datePublished" datetime="2020-09-09T16:21:45+08:00">2020-09-09</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="mvn-clean"><a href="#mvn-clean" class="headerlink" title="mvn clean"></a>mvn clean</h3><p>清理项目生产的临时文件,一般是模块下的target目录</p>
-<h3 id="mvn-compile"><a href="#mvn-compile" class="headerlink" title="mvn compile"></a>mvn compile</h3><p>编译源码，编译生成class文件,编译命令，只编译选定的目标，不管之前是否已经编译过，会在你的项目路径下生成一个target目录，在该目录中包含一个classes文件夹，里面全是生成的class文件及字节码文件。</p>
-<h3 id="mvn-package"><a href="#mvn-package" class="headerlink" title="mvn package"></a>mvn package</h3><p>项目打包工具,会在模块下的target目录生成jar或war等文件</p>
-<h3 id="mvn-install"><a href="#mvn-install" class="headerlink" title="mvn install"></a>mvn install</h3><p>模块安装命令 将打包的的jar/war文件复制到你的本地仓库中,供其他模块使用 -Dmaven.test.skip=true 跳过测试(同时会跳过test compile)</p>
-<h3 id="mvn-test"><a href="#mvn-test" class="headerlink" title="mvn test"></a>mvn test</h3><p>测试命令,或执行src/test/java/下junit的测试用例</p>
-<h3 id="mvn-deploy"><a href="#mvn-deploy" class="headerlink" title="mvn deploy"></a>mvn deploy</h3><p>发布命令 将打包的文件发布到远程参考,提供其他人员进行下载依赖 ,一般是发布到公司的私服</p>
-<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><ul>
-<li>mvn package ：打包</li>
-<li>mvn site ： 产生site</li>
-<li>mvn test ： 运行测试</li>
-<li>mvn compile ： 编译</li>
-<li>mvn test-compile ： 编译测试代码</li>
-<li>mvn archetype:generate ： 反向生成项目的骨架</li>
-<li>mvn jar ： 生成jar包</li>
-<li>mvn install ： 本地安装</li>
-<li>mvn clean ： 清除编译后的项目文件</li>
-<li>mvn eclipse:eclipse ： 生成eclipse项目</li>
-<li>mvn idea:idea ： 生成idea项目</li>
-<li>mvn -Dtest package ： 只打包不测试</li>
-<li>mvn test -skipping comiple ： 只测试不编译</li>
-<li>mvn dependency:list ： 查看当前项目已被解析的依赖</li>
-<li>mvn deploy ： 上传到私服</li>
-<li>mvn source:jar ： 源码打包</li>
-<li>mvn -e ： 显示详细错误信息</li>
-<li>mvn validate ： 验证工程是否正确</li>
-<li>mvn jetty:run ： 运行项目于jetty上</li>
-</ul>
-
-      
-    </div>
-
-
-
-    
-    
-    
-      <div>
-       
-      </div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/09/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="Tiny Keen">
-      <meta itemprop="description" content="秦人一枚，爱读书，玩历史，敲键盘谋生">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园头">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/09/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">hexo常用命令详解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-09 10:45:26" itemprop="dateCreated datePublished" datetime="2020-09-09T10:45:26+08:00">2020-09-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-10 11:18:09" itemprop="dateModified" datetime="2020-09-10T11:18:09+08:00">2020-09-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="清除缓存"><a href="#清除缓存" class="headerlink" title="清除缓存"></a>清除缓存</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">hexo clean</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="生成静态网站文件"><a href="#生成静态网站文件" class="headerlink" title="生成静态网站文件"></a>生成静态网站文件</h4><p>生成静态页面至<em>博客主目录\public\</em>目录。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">hexo generate[hexo g]</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h4><p><a href="https://localhost:4000,默认端口号4000">https://localhost:4000,默认端口号4000</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">hexo server[hexo s]</span></span><br><span class="line"><span class="meta">#</span><span class="bash">hexo server -s   <span class="comment">#静态模式</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">hexo server -p 5000   <span class="comment">#更改端口</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">hexo server -i 192.168.1.1   <span class="comment">#自定义IP</span></span></span><br></pre></td></tr></table></figure>
-
-<h4 id="发布网站"><a href="#发布网站" class="headerlink" title="发布网站"></a>发布网站</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">hexo deploy[hexo d]</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="写新文章"><a href="#写新文章" class="headerlink" title="写新文章"></a>写新文章</h4><p>执行new命令，生成指定名称的文章至<code>博客主目录\source\_posts\postname.md</code>。其中layout是可选参数，默认值为post。有哪些layout呢，请到<code>博客主目录\scaffolds</code>目录下查看，这些文件名称就是layout名称。当然你可以添加自己的layout，也可以编辑现有的layout，比如post的layout默认是<code>博客主目录\scaffolds\post.md</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">hexo new [layout] <span class="string">&quot;postname&quot;</span> [hexo n <span class="string">&quot;postname&quot;</span>]</span></span><br></pre></td></tr></table></figure>
-
-<p>生成<code>postname.md</code>文件后，可使用markdown编辑器输入博客正文</p>
-<h4 id="自定义页面"><a href="#自定义页面" class="headerlink" title="自定义页面"></a>自定义页面</h4><p>在<code>博客主目录\source\</code>下会生成<code>pagename</code>目录，里面有个<code>index.md</code>，直接编辑就可以了，然后在主题的<code>_config.yml</code>中将其配置显示出来。<br>上述步骤，也可以手工生成，在<code>博客主目录\source\</code>下手工新建<code>pagename</code>目录，及该目录下的<code>index.md</code></p>
-<ul>
-<li>生成页面</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> hexo new page <span class="string">&quot;pagename&quot;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">hexo new page <span class="string">&quot;about&quot;</span>  </span></span><br><span class="line"><span class="meta">#</span><span class="bash">hexo new page <span class="string">&quot;404&quot;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">hexo new page <span class="string">&quot;categories&quot;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">hexo new page <span class="string">&quot;tags&quot;</span></span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>启用配置项</li>
-</ul>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">home</span>: <span class="string">/ || fa fa-home</span></span><br><span class="line">  <span class="attr">about</span>: <span class="string">/about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags</span>: <span class="string">/tags/ || fa fa-tags</span></span><br><span class="line">  <span class="attr">categories</span>: <span class="string">/categories/ || fa fa-th</span></span><br><span class="line">  <span class="attr">archives</span>: <span class="string">/archives/ || fa fa-archive</span></span><br><span class="line"><span class="comment">  #schedule: /schedule/ || fa fa-calendar</span></span><br><span class="line"><span class="comment">  #sitemap: /sitemap.xml || fa fa-sitemap</span></span><br><span class="line">  <span class="attr">commonweal</span>: <span class="string">/404/ || fa fa-heartbeat</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable / Disable menu icons / item badges.</span></span><br><span class="line"><span class="attr">menu_settings</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">icons</span>: <span class="string">true #是否显示各个页面的图标</span></span><br><span class="line">  <span class="attr">badges</span>: <span class="string">true #是否显示分类/标签/归档页的内容量</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>修改页面内容</p>
-<ul>
-<li>修改生成的<code>source/tags/index.md</code>文件,加上type: “tags”,才行，title可以随便写</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 学习之路</span><br><span class="line">date: <span class="number">2019</span><span class="literal">-12</span><span class="literal">-21</span> <span class="number">11</span>:<span class="number">13</span>:<span class="number">45</span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;tags&quot;</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>修改生成的<code>source/tags/categories.md</code>文件,加上type: “categories”</li>
-</ul>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: <span class="number">2019</span><span class="literal">-12</span><span class="literal">-18</span> <span class="number">19</span>:<span class="number">45</span>:<span class="number">11</span></span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;categories&quot;</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-
-
-    
-    
-    
-      <div>
-       
-      </div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/08/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="Tiny Keen">
-      <meta itemprop="description" content="秦人一枚，爱读书，玩历史，敲键盘谋生">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="菜园头">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/08/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%90%AD%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">hexo博客的搭建及配置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-08 17:47:05" itemprop="dateCreated datePublished" datetime="2020-09-08T17:47:05+08:00">2020-09-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-10 11:17:52" itemprop="dateModified" datetime="2020-09-10T11:17:52+08:00">2020-09-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="一、安装必备软件"><a href="#一、安装必备软件" class="headerlink" title="一、安装必备软件"></a>一、安装必备软件</h4><ul>
-<li><p>安装node</p>
-<p>hexo是基于Node.js框架的静态博客程序</p>
-</li>
-<li><p>安装git</p>
-<p>用于本地文件与服务器文件的同步</p>
-</li>
-<li><p>安装一款markdown编辑器</p>
-<p>推荐Typora或者用Visual Studio Code编辑器（安装markdown插件） </p>
-</li>
-<li><p>熟悉npm命令用法</p>
-<p>全局安装hexo基础框架</p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">npm install -g hexo</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>Github账号及账号同名的库</p>
-<p>用来托管你的静态博客内容；可通过如下步骤操作</p>
-<ul>
-<li><p>创建一个账号和创建一个库</p>
-<p>假如你的账号为<code>tinykeen</code>,则库名为<code>tinykeen.github.io</code></p>
-<p><img src="/images/github.png"></p>
-</li>
-<li><p>本地生成SSH密钥</p>
-<p>默认密钥对（公钥，私钥）生成再~/.ssh目录下面，</p>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">ssh-keygen -t rsa -C <span class="string">&quot;youremail&quot;</span></span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>配置公钥</p>
-<p>拷贝公钥的内容，添加、配置到Github网站的对应地方</p>
-</li>
-<li><p>密钥验证</p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">ssh -T git@github.com</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="二、初始化"><a href="#二、初始化" class="headerlink" title="二、初始化"></a>二、初始化</h4><p>新建目录，名称可自定义，如blog,boke等，该文件夹的主要作用如下，请<strong>妥善保存及备份</strong></p>
-<ul>
-<li>用来初始化博客网站的信息</li>
-<li>配置博客网站的主题及其他配置项</li>
-<li>博客网站所有博文的根目录</li>
-<li>git同步的主目录</li>
-</ul>
-<p>创建目录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">mkdir blog</span></span><br></pre></td></tr></table></figure>
-
-<p>初始化目录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">cd</span> blog ----确认进入创建的目录</span></span><br><span class="line"><span class="meta">#</span><span class="bash">hexo init</span></span><br></pre></td></tr></table></figure>
-<h4 id="三、生成博客网站"><a href="#三、生成博客网站" class="headerlink" title="三、生成博客网站"></a>三、生成博客网站</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> hexo g [或者  hexo generate ] ----生成静态网页</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> hexo s [或者  hexo server] ----启动本地网站，默认端口号4000</span></span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="四、部署到Github"><a href="#四、部署到Github" class="headerlink" title="四、部署到Github"></a>四、部署到Github</h4><ul>
-<li><p>修改配置文件</p>
-<p>根据需要，修改符合自己博客主题的配置项，如博客名称等，发布部署的配置项是</p>
-<p>deploy:<br>  type: git  —-发布方式<br>  repository: <a target="_blank" rel="noopener" href="https://github.com/tinykeen/tinykeen.github.io.git">https://github.com/tinykeen/tinykeen.github.io.git</a> —对应第一章节中创建的账号同名库<br>  branch: master</p>
-</li>
-</ul>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hexo Configuration</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/configuration.html</span></span><br><span class="line"><span class="comment">## Source: https://github.com/hexojs/hexo/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title</span>: <span class="string">菜园头</span></span><br><span class="line"><span class="attr">subtitle</span>: <span class="string">&#x27;秦朝大将王剪封地，古城频阳县，今陕西富平美原镇人氏&#x27;</span></span><br><span class="line"><span class="attr">description</span>: <span class="string">&#x27;秦人一枚，爱读书，玩历史，敲键盘谋生&#x27;</span></span><br><span class="line"><span class="attr">keywords</span>:<span class="string"></span></span><br><span class="line"><span class="attr">author</span>: <span class="string">Tiny Keen</span></span><br><span class="line"><span class="attr">language</span>: <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone</span>: <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://example.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url</span>: <span class="string">http://example.com</span></span><br><span class="line"><span class="attr">root</span>: <span class="string">/</span></span><br><span class="line"><span class="attr">permalink</span>: <span class="string">:year/:month/:day/:title/</span></span><br><span class="line"><span class="attr">permalink_defaults</span>:<span class="string"></span></span><br><span class="line"><span class="attr">pretty_urls</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">trailing_index</span>: <span class="string">true # Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span></span><br><span class="line">  <span class="attr">trailing_html</span>: <span class="string">true # Set to false to remove trailing &#x27;.html&#x27; from permalinks</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory</span></span><br><span class="line"><span class="attr">source_dir</span>: <span class="string">source</span></span><br><span class="line"><span class="attr">public_dir</span>: <span class="string">public</span></span><br><span class="line"><span class="attr">tag_dir</span>: <span class="string">tags</span></span><br><span class="line"><span class="attr">archive_dir</span>: <span class="string">archives</span></span><br><span class="line"><span class="attr">category_dir</span>: <span class="string">categories</span></span><br><span class="line"><span class="attr">code_dir</span>: <span class="string">downloads/code</span></span><br><span class="line"><span class="attr">i18n_dir</span>: <span class="string">:lang</span></span><br><span class="line"><span class="attr">skip_render</span>:  <span class="string">#部署的时候不包含的文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Writing</span></span><br><span class="line"><span class="attr">new_post_name</span>: <span class="string">:title.md # File name of new posts</span></span><br><span class="line"><span class="attr">default_layout</span>: <span class="string">post</span></span><br><span class="line"><span class="attr">titlecase</span>: <span class="string">false # Transform title into titlecase</span></span><br><span class="line"><span class="attr">external_link</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">enable</span>: <span class="string">true # Open external links in new tab</span></span><br><span class="line">  <span class="attr">field</span>: <span class="string">site # Apply to the whole site</span></span><br><span class="line">  <span class="attr">exclude</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">filename_case</span>: <span class="string">0</span></span><br><span class="line"><span class="attr">render_drafts</span>: <span class="string">false #是否显示草稿</span></span><br><span class="line"><span class="attr">post_asset_folder</span>: <span class="string">false</span></span><br><span class="line"><span class="attr">relative_link</span>: <span class="string">false</span></span><br><span class="line"><span class="attr">future</span>: <span class="string">true</span></span><br><span class="line"><span class="attr">highlight</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">enable</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">line_number</span>: <span class="string">true #是否增加代码行号</span></span><br><span class="line">  <span class="attr">auto_detect</span>: <span class="string">true #自动判断代码语言</span></span><br><span class="line">  <span class="attr">tab_replace</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">wrap</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">hljs</span>: <span class="string">false</span></span><br><span class="line"><span class="attr">prismjs</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">enable</span>: <span class="string">false</span></span><br><span class="line">  <span class="attr">preprocess</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">line_number</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">tab_replace</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Home page setting</span></span><br><span class="line"><span class="comment"># path: Root path for your blogs index page. (default = &#x27;&#x27;)</span></span><br><span class="line"><span class="comment"># per_page: Posts displayed per page. (0 = disable pagination)</span></span><br><span class="line"><span class="comment"># order_by: Posts order. (Order by date descending by default)</span></span><br><span class="line"><span class="attr">index_generator</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">path</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="attr">per_page</span>: <span class="string">10</span></span><br><span class="line">  <span class="attr">order_by</span>: <span class="string">-date</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Category &amp; Tag</span></span><br><span class="line"><span class="attr">default_category</span>: <span class="string">uncategorized</span></span><br><span class="line"><span class="attr">category_map</span>:<span class="string"></span></span><br><span class="line"><span class="attr">tag_map</span>:<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Metadata elements</span></span><br><span class="line"><span class="comment">## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta</span></span><br><span class="line"><span class="attr">meta_generator</span>: <span class="string">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Date / Time format</span></span><br><span class="line"><span class="comment">## Hexo uses Moment.js to parse and display date</span></span><br><span class="line"><span class="comment">## You can customize the date format as defined in</span></span><br><span class="line"><span class="comment">## http://momentjs.com/docs/#/displaying/format/</span></span><br><span class="line"><span class="attr">date_format</span>: <span class="string">YYYY-MM-DD</span></span><br><span class="line"><span class="attr">time_format</span>: <span class="string">HH:mm:ss</span></span><br><span class="line"><span class="comment">## updated_option supports &#x27;mtime&#x27;, &#x27;date&#x27;, &#x27;empty&#x27;</span></span><br><span class="line"><span class="attr">updated_option</span>: <span class="string">&#x27;mtime&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pagination</span></span><br><span class="line"><span class="comment">## Set per_page to 0 to disable pagination</span></span><br><span class="line"><span class="attr">per_page</span>: <span class="string">10</span></span><br><span class="line"><span class="attr">pagination_dir</span>: <span class="string">page</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Include / Exclude file(s)</span></span><br><span class="line"><span class="comment">## include:/exclude: options only apply to the &#x27;source/&#x27; folder</span></span><br><span class="line"><span class="attr">include</span>:<span class="string"></span></span><br><span class="line"><span class="attr">exclude</span>:<span class="string"></span></span><br><span class="line"><span class="attr">ignore</span>:<span class="string"></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br><span class="line"><span class="attr">theme</span>: <span class="string">next</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">type</span>: <span class="string">git</span></span><br><span class="line">  <span class="attr">repository</span>: <span class="string">https://github.com/tinykeen/tinykeen.github.io.git</span></span><br><span class="line">  <span class="attr">branch</span>: <span class="string">master</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>发布博客</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> hexo d [ 或者hexo deploy ] </span></span><br></pre></td></tr></table></figure>
-
-<p>发布如果提示有问题，请安装发布插件npm install hexo-deployer-git –save</p>
-
-      
-    </div>
-
-
-
-    
-    
-    
-      <div>
-       
-      </div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -1736,20 +1988,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

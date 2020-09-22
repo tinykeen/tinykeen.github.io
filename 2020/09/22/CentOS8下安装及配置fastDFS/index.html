@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="如果在云服务器上安装，要注意在服务器的安全规则中设置端口22122,23000,80等的出入规则 下载 官方地址  1https:&#x2F;&#x2F;github.com&#x2F;happyfish100   说明：当前版本:共3个子模块  123fastdfs v6.06libfastcommon v1.0.43fastdfs-nginx-module   v 1.22   下载  123[root@localhost">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS8下安装及配置fastDFS">
+<meta property="og:url" content="http://example.com/2020/09/22/CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AEfastDFS/index.html">
+<meta property="og:site_name" content="菜园头">
+<meta property="og:description" content="如果在云服务器上安装，要注意在服务器的安全规则中设置端口22122,23000,80等的出入规则 下载 官方地址  1https:&#x2F;&#x2F;github.com&#x2F;happyfish100   说明：当前版本:共3个子模块  123fastdfs v6.06libfastcommon v1.0.43fastdfs-nginx-module   v 1.22   下载  123[root@localhost">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-22T09:55:21.000Z">
+<meta property="article:modified_time" content="2020-09-22T10:41:50.868Z">
+<meta property="article:author" content="Tiny Keen">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/09/22/CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AEfastDFS/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>CentOS8下安装及配置fastDFS | 菜园头</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜园头</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">秦朝大将王剪封地，古城频阳县，今陕西富平美原镇人氏</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/tinykeen" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/22/CentOS8%E4%B8%8B%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AEfastDFS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="Tiny Keen">
+      <meta itemprop="description" content="秦人一枚，爱读书，玩历史，敲键盘谋生">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜园头">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CentOS8下安装及配置fastDFS
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-22 17:55:21 / 修改时间：18:41:50" itemprop="dateCreated datePublished" datetime="2020-09-22T17:55:21+08:00">2020-09-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><em>如果在云服务器上安装，要注意在服务器的安全规则中设置端口<code>22122,23000,80</code>等的出入规则</em></p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ol>
+<li>官方地址</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//gi</span>thub.com/happyfish100</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>说明：当前版本:共3个子模块</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fastdfs</span> v<span class="number">6</span>.<span class="number">06</span></span><br><span class="line"><span class="attribute">libfastcommon</span> v<span class="number">1</span>.<span class="number">0</span>.<span class="number">43</span></span><br><span class="line"><span class="attribute">fastdfs</span>-nginx-module   v <span class="number">1</span>.<span class="number">22</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>下载</li>
+</ol>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="keyword">source</span>]# wget https:<span class="comment">//github.com/happyfish100/fastdfs/archive/V6.06.tar.gz</span></span><br><span class="line">[root@localhost <span class="keyword">source</span>]# wget https:<span class="comment">//github.com/happyfish100/fastdfs-nginx-module/archive/V1.22.tar.gz</span></span><br><span class="line">[root@localhost <span class="keyword">source</span>]# wget https:<span class="comment">//github.com/happyfish100/libfastcommon/archive/V1.0.43.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装所需的依赖包"><a href="#安装所需的依赖包" class="headerlink" title="安装所需的依赖包"></a>安装所需的依赖包</h2><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@localhost</span> dest]<span class="meta"># yum install gcc gcc-c++</span></span><br><span class="line">[root<span class="symbol">@localhost</span> dest]<span class="meta"># yum install libtool zlib zlib-devel openssl openssl-devel</span></span><br><span class="line">[root<span class="symbol">@localhost</span> dest]<span class="meta"># yum -y install pcre pcre-devel libevent libevent-devel perl unzip net-tools wget</span></span><br></pre></td></tr></table></figure>
+
+<p>说明：在<code>fastdfs</code>的编译安装时会用到这些包，避免编译时出现报错</p>
+<h2 id="libfastcommon的安装"><a href="#libfastcommon的安装" class="headerlink" title="libfastcommon的安装"></a>libfastcommon的安装</h2><ol>
+<li>解压<code>libfastcommon</code>的压缩包</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -zxvf V1.0.43.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>编译并安装</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> libfastcommon-1.0.43/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./make.sh &amp;&amp; ./make.sh install</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>检查执行的结果，看安装是否成功:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ls /usr/lib64|grep libfastcommon</span></span><br><span class="line">libfastcommon.so</span><br><span class="line"><span class="meta">#</span><span class="bash"> ls /usr/lib|grep libfastcommon</span></span><br><span class="line">libfastcommon.so</span><br></pre></td></tr></table></figure>
+
+<p> <em>说明：如果能看到<code>libfastcommon.so</code>说明安装成功</em></p>
+<h2 id="编译安装fastdfs"><a href="#编译安装fastdfs" class="headerlink" title="编译安装fastdfs"></a>编译安装fastdfs</h2><ol>
+<li>解压fastdfs</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -zxvf V6.06.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>安装fastdfs</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> fastdfs-6.06/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./make.sh &amp;&amp; ./make.sh install</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>检查fastdfs是否安装成功?</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ls /usr/bin|grep fdfs</span></span><br><span class="line">fdfs_appender_test</span><br><span class="line">fdfs_appender_test1</span><br><span class="line">fdfs_append_file</span><br><span class="line">fdfs_crc32</span><br><span class="line">fdfs_delete_file</span><br><span class="line">fdfs_download_file</span><br><span class="line">fdfs_file_info</span><br><span class="line">fdfs_monitor</span><br><span class="line">fdfs_regenerate_filename</span><br><span class="line">fdfs_storaged</span><br><span class="line">fdfs_test</span><br><span class="line">fdfs_test1</span><br><span class="line">fdfs_trackerd</span><br><span class="line">fdfs_upload_appender</span><br><span class="line">fdfs_upload_file</span><br></pre></td></tr></table></figure>
+
+<p><em>说明：能看到<code>fdfs_</code>打头的这些程序，则表示安装成功</em></p>
+<h2 id="生成启动fastdfs所需的配置文件"><a href="#生成启动fastdfs所需的配置文件" class="headerlink" title="生成启动fastdfs所需的配置文件"></a>生成启动fastdfs所需的配置文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> /etc/fdfs/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cp storage.conf.sample storage.conf</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cp client.conf.sample client.conf</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cp tracker.conf.sample tracker.conf</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="启动tracker服务"><a href="#启动tracker服务" class="headerlink" title="启动tracker服务"></a>启动tracker服务</h2><ol>
+<li>创建tracker服务所需的目录</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mkdir /data/fastdfs</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> mkdir /data/fastdfs/tracker</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> chmod 777 /data/fastdfs/tracker</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>配置tracker服务，</p>
+<p>修改 <code>tracker.conf </code>文件</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vi /etc/fdfs/tracker.conf</span></span><br></pre></td></tr></table></figure>
+
+<p> 只修改<code>base_path</code>一项的值为我们在上面所创建的目录即可</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">base_path</span> = <span class="string">/data/fastdfs/tracker</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>启动 tracker 服务</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> systemctl start fdfs_trackerd.service</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>检查tracker服务启动是否成功</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ps auxfww | grep fdfs</span></span><br><span class="line">root      15067  0.0  0.0  12320   964 pts/0    S+   15:14   0:00  |   |           \_ grep --color=auto fdfs</span><br><span class="line">root      15026  0.0  0.1  90160  5940 ?        Sl   15:13   0:00 /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf</span><br><span class="line"><span class="meta">#</span><span class="bash"> systemctl status fdfs_trackerd.service</span></span><br></pre></td></tr></table></figure>
+
+
+<p>能看到<code> fdfs_trackerd</code>表示<code>tracker</code>服务启动成功</p>
+<ol start="5">
+<li>检查tracker服务是否已绑定端口 22122?</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> netstat -anp | grep 22122</span></span><br><span class="line">tcp        0      0 0.0.0.0:22122           0.0.0.0:*               LISTEN      15026/fdfs_trackerd </span><br></pre></td></tr></table></figure>
+
+<p><em>说明： 22122端口是在<code>/etc/fdfs/tracker.conf</code>中定义的如下</em></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># the tracker server port</span></span><br><span class="line"><span class="attr">port</span> = <span class="string">22122</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="启动storage服务"><a href="#启动storage服务" class="headerlink" title="启动storage服务"></a>启动storage服务</h2><ol>
+<li>创建storage服务所需的目录</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mkdir /data/fastdfs/storage</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> chmod 777 /data/fastdfs/storage/</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>配置storage服务</li>
+</ol>
+<p>编辑storage的配置文件:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vi /etc/fdfs/storage.conf</span></span><br></pre></td></tr></table></figure>
+
+<p> 各配置项包括：</p>
+<p>配置<code>base_path</code>为上面所创建的storage目录</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">base_path</span> = <span class="string">/data/fastdfs/storage</span></span><br><span class="line"><span class="attr">store_path0</span> = <span class="string">/data/fastdfs/storage</span></span><br></pre></td></tr></table></figure>
+
+<p><em>上面的<code>store_path </code>：存储所在的目录，可以设置多个，注意从0开始</em></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tracker_server = <span class="number">192.168</span><span class="number">.3</span><span class="number">.172</span>:<span class="number">22122</span> </span><br></pre></td></tr></table></figure>
+
+<p><em>上面是<code>tracker_server</code>的<code>ip</code>和端口</em></p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">http</span>.server_<span class="keyword">port</span> = 80</span><br></pre></td></tr></table></figure>
+
+<p><em>上面是指定<code>http</code>服务的端口,和<code>nginx</code>的端口保持一致，从上面我们可以看到，<code>storage_server</code>在启动时要注册到<code>tracker_server </code>从而实现由<code>tracker_server</code>对其进行调度</em></p>
+<ol start="3">
+<li>启动storage服务</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> systemctl start fdfs_storaged.service</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>检查storage服务启动是否成功?</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ps auxfww | grep fdfs</span></span><br><span class="line">root      15630  0.0  0.0  12320   972 pts/0    S+   15:46   0:00  |   |           \_ grep --color=auto fdfs</span><br><span class="line">root      15026  0.0  0.1 155696  6964 ?        Sl   15:13   0:00 /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf</span><br><span class="line">root      15573  2.7  1.7 150736 66292 ?        Sl   15:45   0:02 /usr/bin/fdfs_storaged /etc/fdfs/storage.conf</span><br><span class="line"><span class="meta">#</span><span class="bash">systemctl status fdfs_storaged.service</span></span><br></pre></td></tr></table></figure>
+
+<p><em>说明：看到<code>fdfs_storaged</code>表示storage服务启动成功</em></p>
+<ol start="5">
+<li>检查<code>storage</code>服务是否已绑定到端口<code>:23000</code>?</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> netstat -anp | grep 23000</span></span><br><span class="line">tcp        0      0 0.0.0.0:23000           0.0.0.0:*               LISTEN      15573/fdfs_storaged </span><br></pre></td></tr></table></figure>
+
+<p><em>说明：23000 端口是在配置文件<code> /etc/fdfs/storage.conf</code>中定义的，如下:</em></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># the storage server port</span></span><br><span class="line">port = 23000</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置fastdfs的客户端使用的配置文件"><a href="#配置fastdfs的客户端使用的配置文件" class="headerlink" title="配置fastdfs的客户端使用的配置文件"></a>配置fastdfs的客户端使用的配置文件</h2><ol>
+<li>配置客户端要使用的client.conf</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vi /etc/fdfs/client.conf</span></span><br></pre></td></tr></table></figure>
+
+<p>以下两项配置用到的tracker目录和服务器地址端口</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">base_path</span> = <span class="string">/data/fastdfs/tracker</span></span><br><span class="line"><span class="attr">tracker_server</span> = <span class="string">192.168.3.172:22122</span></span><br></pre></td></tr></table></figure>
+
+<p><em>从客户端的配置可以看到,客户端只需要了解<code>tracker_server</code>的信息, <code>Tracker server</code>作用也正是负载均衡和调度, <code>Storage server</code>作用是文件存储，客户端上传的文件最终存储在 <code>Storage server </code>服务器上</em></p>
+<h2 id="安装nginx及fastdfs-nginx-module"><a href="#安装nginx及fastdfs-nginx-module" class="headerlink" title="安装nginx及fastdfs-nginx-module"></a>安装nginx及fastdfs-nginx-module</h2><ol>
+<li>解压<code>nginx</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -zxvf nginx-1.17.8.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>解压<code>fastdfs-nginx-module</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tar -zxvf V1.22.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+
+<ol start="3">
+<li>修改<code>config</code>文件，把<code>/usr/local</code> 替换成<code> /usr</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> fastdfs-nginx-module-1.22/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> src</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> vi config</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><code>nginx</code>配置,添加<code>fastdfs-nginx-module</code>和<code>http_stub_status_module</code> 模块</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost fdfs]# cd /usr/local/source/nginx-1.17.8/</span><br><span class="line">[root@localhost nginx-1.17.8]# ./configure --prefix=/usr/local/soft/nginx --with-http_stub_status_module --add-module=/usr/local/source/fastdfs-nginx-module-1.22/src/</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>编译安装<code>nginx </code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> make &amp;&amp; make install</span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>检查安装是否成功？</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ls /usr/<span class="built_in">local</span>/soft/ | grep nginx</span></span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>查看指定的编译参数是否起作用？</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /usr/<span class="built_in">local</span>/soft/nginx/sbin/nginx -V</span></span><br><span class="line">nginx version: nginx/1.17.8</span><br><span class="line">built by gcc 8.3.1 20190507 (Red Hat 8.3.1-4) (GCC) </span><br><span class="line">configure arguments: --prefix=/usr/local/soft/nginx --with-http_stub_status_module --add-module=/usr/local/source/fastdfs-nginx-module-1.22/src/</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="配置fastdfs-nginx-module"><a href="#配置fastdfs-nginx-module" class="headerlink" title="配置fastdfs-nginx-module"></a>配置fastdfs-nginx-module</h2><ol>
+<li>生成配置文件：</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> cp /usr/<span class="built_in">local</span>/<span class="built_in">source</span>/fastdfs-nginx-module-1.22/src/mod_fastdfs.conf /etc/fdfs/</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>编辑配置文件:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vi /etc/fdfs/mod_fastdfs.conf</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">connect_timeout</span>=<span class="string">10</span></span><br><span class="line"><span class="attr">tracker_server</span>=<span class="string">192.168.3.172:22122</span></span><br><span class="line"><span class="attr">url_have_group_name</span> = <span class="string">true</span></span><br><span class="line"><span class="attr">store_path0</span>=<span class="string">/data/fastdfs/storage</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>复制另两个web访问用到配置文件到<code>/etc/fdfs</code>配置目录下:</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/<span class="built_in">source</span>/fastdfs-6.06/conf/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cp http.conf /etc/fdfs/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cp mime.types /etc/fdfs/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><p><em>编辑<code>nginx</code>的配置文件,在<code>server listen 80 </code>的这个server配置下面,增加一个location</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> vi /usr/<span class="built_in">local</span>/soft/nginx/conf/nginx.conf</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">location</span> <span class="string">~/group([0-9]) &#123;</span></span><br><span class="line">     <span class="attr">root</span>  <span class="string">/data/fastdfs/storage/data;</span></span><br><span class="line">     <span class="attr">ngx_fastdfs_module;</span></span><br><span class="line"> <span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="测试上传一张图片"><a href="#测试上传一张图片" class="headerlink" title="测试上传一张图片"></a>测试上传一张图片</h2><ol>
+<li>准备一张图片，然后上传</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> /usr/bin/fdfs_upload_file /etc/fdfs/client.conf xxx.jpg</span></span><br><span class="line">group1/M00/00/00/wKgDrF5U32GAZAo1AAAyP-hllUI402.jpg</span><br></pre></td></tr></table></figure>
+
+<p> <em>注意<code>fdfs</code>所返回的地址，我们需要使用这个地址进行访问</em></p>
+<ol start="2">
+<li>打开浏览器：访问这个地址:</li>
+</ol>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">http</span>:<span class="string">//192.168.3.172/group1/M00/00/00/wKgDrF5U32GAZAo1AAAyP-hllUI402.jpg</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>实际的图片位于文件系统中什么位置？</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">pwd</span></span></span><br><span class="line">/data/fastdfs/storage/data</span><br><span class="line">[root@localhost data]# ls 00/00</span><br><span class="line">wKgDrF5U32GAZAo1AAAyP-hllUI402.jpg</span><br></pre></td></tr></table></figure>
+
+<p><em>可见<code>/group1/M00</code>这两个目录是由<code>fdfs</code>所管理生成的目录,它们分别代表<code>fdfs</code>生成的组名和磁盘</em></p>
+<h2 id="查看fdfs的版本"><a href="#查看fdfs的版本" class="headerlink" title="查看fdfs的版本"></a>查看fdfs的版本</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> fdfs_monitor /etc/fdfs/client.conf | grep version</span></span><br><span class="line">[2020-02-25 16:58:01] DEBUG - base_path=/data/fastdfs/tracker, connect_timeout=5, network_timeout=60, tracker_server_count=1, anti_steal_token=0, anti_steal_secret_key length=0, use_connection_pool=0, g_connection_pool_max_idle_time=3600s, use_storage_id=0, storage server id count: 0</span><br><span class="line"></span><br><span class="line">version = 6.06</span><br></pre></td></tr></table></figure>
+<h2 id="监控fdfs的运行状态"><a href="#监控fdfs的运行状态" class="headerlink" title="监控fdfs的运行状态"></a>监控fdfs的运行状态</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> fdfs_monitor /etc/fdfs/client.conf</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+
+
+    
+    
+    
+      <div>
+       
+       <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+       
+      </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/22/Apache-tomcat%E5%9C%A8linux%E4%B8%8B%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" rel="prev" title="Apache tomcat在linux下安装及配置">
+      <i class="fa fa-chevron-left"></i> Apache tomcat在linux下安装及配置
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%89%80%E9%9C%80%E7%9A%84%E4%BE%9D%E8%B5%96%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">安装所需的依赖包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#libfastcommon%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">libfastcommon的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85fastdfs"><span class="nav-number">4.</span> <span class="nav-text">编译安装fastdfs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%90%AF%E5%8A%A8fastdfs%E6%89%80%E9%9C%80%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">生成启动fastdfs所需的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8tracker%E6%9C%8D%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">启动tracker服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8storage%E6%9C%8D%E5%8A%A1"><span class="nav-number">7.</span> <span class="nav-text">启动storage服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEfastdfs%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BD%BF%E7%94%A8%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">8.</span> <span class="nav-text">配置fastdfs的客户端使用的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85nginx%E5%8F%8Afastdfs-nginx-module"><span class="nav-number">9.</span> <span class="nav-text">安装nginx及fastdfs-nginx-module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEfastdfs-nginx-module"><span class="nav-number">10.</span> <span class="nav-text">配置fastdfs-nginx-module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEnginx"><span class="nav-number">11.</span> <span class="nav-text">配置nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%8A%E4%BC%A0%E4%B8%80%E5%BC%A0%E5%9B%BE%E7%89%87"><span class="nav-number">12.</span> <span class="nav-text">测试上传一张图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bfdfs%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">13.</span> <span class="nav-text">查看fdfs的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E6%8E%A7fdfs%E7%9A%84%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81"><span class="nav-number">14.</span> <span class="nav-text">监控fdfs的运行状态</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Tiny Keen"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">Tiny Keen</p>
+  <div class="site-description" itemprop="description">秦人一枚，爱读书，玩历史，敲键盘谋生</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/tinykeen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tinykeen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiny Keen</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+
+</html>
